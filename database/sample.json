@@ -1,0 +1,34 @@
+{
+  "userid": {
+    "username": "name of the user",
+    "lastListId": 2,
+    "lists": [
+      {
+        "id": 1,
+        "title": "todo-list 1 title",
+        "lastTaskId": 2,
+        "tasks": [
+          {
+            "id": 1,
+            "name": "todo item1",
+            "isDone": true
+          },
+          {
+            "id": 2,
+            "name": "todo item2",
+            "isDone": false
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "todo-list 2 title",
+        "lastTaksId": 0,
+        "tasks": []
+      }
+    ]
+  },
+  "another-uid": {
+    //same as above
+  }
+}

@@ -1,0 +1,26 @@
+main {
+  width: 720px;
+  margin: 200 auto;
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 7em;
+  font-weight: 100;
+  margin: 0.2em;
+}
+
+.nav-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-section a {
+  margin: 1.3em;
+  text-decoration: none;
+}
