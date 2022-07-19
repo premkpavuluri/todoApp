@@ -12,8 +12,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "mocha"
+    "start": "ENVIRONMENT='PRODUCTION' node index.js",
+    "test": "mocha",
+    "w-test": "mocha -w"
   },
   "repository": {
     "type": "git",

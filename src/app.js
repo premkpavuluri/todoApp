@@ -1,11 +1,19 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const createApp = () => {
+const { loginHandler } = require('./handlers/loginHandler.js');
+
+const createApp = (appConfig, users) => {
   const app = express();
 
-  app.use(morgan('dev'));
-  app.use(express.static('public'));
+  if (process.env.ENVIRONMENT === 'PRODUCTION') {
+    app.use(morgan('dev'));
+  }
+
+  app.use(express.urlencoded({ extended: true }));
+  app.use(express.static(appConfig.root));
+
+  app.post('/login', loginHandler(users));
 
   return app;
 };
