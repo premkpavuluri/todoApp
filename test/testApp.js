@@ -58,7 +58,8 @@ describe('POST /login', () => {
     request(app)
       .post('/login')
       .send('username=pk&password=123')
-      .expect(201, done)
+      .expect('location', '/home.html')
+      .expect(302, done)
   });
 
   it('Should give 401 if credentials are not valid', (done) => {
@@ -66,6 +67,7 @@ describe('POST /login', () => {
     request(app)
       .post('/login')
       .send('username=unknown&password=123')
-      .expect(401, done);
+      .expect('location', '/login.html')
+      .expect(302, done);
   });
 });

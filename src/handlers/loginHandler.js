@@ -12,15 +12,23 @@ const isUserValid = (userInfo, { username, password }) => {
   return true;
 };
 
+const createSession = (username) => {
+  const sessionId = new Date().getTime();
+  return { sessionId, username };
+};
+
 const loginHandler = (users) => (req, res) => {
   const { username, password } = req.body;
   const userInfo = users[username];
 
   if (!isUserValid(userInfo, { username, password })) {
-    return res.sendStatus(401);
+    return res.redirect('/login.html');
   }
 
-  res.sendStatus(201);
+  const session = createSession(username);
+  req.session = session;
+
+  res.redirect('/home.html');
 };
 
 module.exports = { loginHandler };

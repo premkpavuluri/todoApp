@@ -2,9 +2,7 @@ const { createApp } = require('./src/app.js');
 require('dotenv').config();
 
 const config = {
-  root: 'public',
-  sessionName: 'sessionId',
-  sessionKeys: ['myKey', 'key2']
+  root: 'public'
 };
 
 const users = {

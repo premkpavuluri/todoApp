@@ -13,7 +13,7 @@ const createApp = (appConfig, users) => {
 
   app.use(cookieSession({
     name: process.env.SESSION_NAME,
-    keys: process.env.SESSION_KEYS
+    keys: [process.env.SESSION_KEY]
   }));
 
   app.use(express.urlencoded({ extended: true }));
