@@ -1,7 +1,13 @@
 # TODO-App
 
 - **TODO:**
-  - [ ] Make home page.
+  - [ ] Create session for logged user.
+  - [ ] Use .env for environment variables.
+  - [ ] Make home page template.
+  - [ ] Make api for:
+    - [ ] todo/lists
+    - [ ] todo/add
+    - [ ] todo/delete
   - [ ] Make authenticator to restrict the user if not logged in.
 
 - **DONE:**
