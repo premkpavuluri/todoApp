@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "morgan": "^1.10.0"
   },
@@ -12,9 +14,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ENVIRONMENT='PRODUCTION' node index.js",
-    "test": "mocha",
-    "w-test": "mocha -w"
+    "start": "cp envs/productionEnvs.txt .env; node index.js",
+    "test": "cp envs/testEnvs.txt .env; mocha",
+    "w-test": "cp envs/testEnvs.txt .env; mocha -w"
   },
   "repository": {
     "type": "git",
