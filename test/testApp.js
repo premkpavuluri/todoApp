@@ -3,7 +3,8 @@ const { createApp } = require('../src/app.js');
 require('dotenv').config();
 
 const appConfig = {
-  root: 'public'
+  root: 'public',
+  templates: { login: 'login page', loginWithError: 'invalid login page' }
 };
 
 const users = {
@@ -42,13 +43,21 @@ describe('GET /signup.html', () => {
   });
 });
 
-describe('GET /login.html', () => {
-  it('Should serve loginpage on GET /login.html', (done) => {
+describe('GET /login', () => {
+  it('Should serve loginpage on GET /login', (done) => {
     const app = createApp(appConfig, users);
     request(app)
-      .get('/login.html')
-      .expect('content-type', /html/)
+      .get('/login')
+      .expect('login page')
       .expect(200, done)
+  });
+
+  it('Should give invalid error page on GET /login?invalid=true', (done) => {
+    const app = createApp(appConfig, users);
+    request(app)
+      .get('/login?invalid=true')
+      .expect('invalid login page')
+      .expect(200, done);
   });
 });
 
@@ -67,7 +76,7 @@ describe('POST /login', () => {
     request(app)
       .post('/login')
       .send('username=unknown&password=123')
-      .expect('location', '/login.html')
+      .expect('location', '/login?invalid=true')
       .expect(302, done);
   });
 });

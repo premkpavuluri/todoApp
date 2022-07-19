@@ -22,7 +22,7 @@ const loginHandler = (users) => (req, res) => {
   const userInfo = users[username];
 
   if (!isUserValid(userInfo, { username, password })) {
-    return res.redirect('/login.html');
+    return res.redirect('/login?invalid=true');
   }
 
   const session = createSession(username);
