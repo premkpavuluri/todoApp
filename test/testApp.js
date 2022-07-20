@@ -21,7 +21,7 @@ const users = {
 const todos = {
   'pk': {
     username: 'pk',
-    lists: ['buy something']
+    lists: [{ id: 1 }]
   }
 }
 
@@ -168,7 +168,7 @@ describe('GET /todo/lists', () => {
       .set('Cookie', cookies)
       .expect('content-type', /json/)
       .expect(todos['pk'].lists)
-      .expect(200, done)
+      .expect(200, done);
   });
 });
 
@@ -193,6 +193,31 @@ describe('POST /todo/add-list', () => {
     request(app)
       .post('/todo/add-list')
       .send("title=hi")
+      .set('Cookie', cookies)
+      .expect(201, done)
+  });
+});
+
+describe('POST /todo/delete-list', () => {
+  let cookies;
+  let app;
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todos);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should delete the list in database', (done) => {
+    request(app)
+      .post('/todo/delete-list?id=1')
       .set('Cookie', cookies)
       .expect(201, done)
   });

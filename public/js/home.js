@@ -12,7 +12,7 @@ const xhrRequest = (req, onStatus, handler, body = '') => {
 };
 
 const generateAttributes = (list) => {
-  return list.map(([key, value]) => `${key}="${value}"`);
+  return list.map(([key, value]) => `${key}="${value}"`).join('');
 };
 
 const tag = (name, attributes, content) =>
@@ -27,7 +27,12 @@ const generateHtml = ([tagName, attributes, ...body]) => {
 };
 
 const generateList = ({ id, title }) => {
-  const li = ['li', [['id', id]], title];
+  const li = ['li', [['id', id]],
+    title, ['input',
+      [['type', 'button'], ['value', 'delete'],
+      ['onclick', 'deleteList()']], ''
+    ]];
+
   return generateHtml(li);
 };
 
@@ -58,6 +63,15 @@ const sendList = () => {
 
   const request = { method: 'POST', url: '/todo/add-list' };
   xhrRequest(request, 201, updateLists, listInfo);
+};
+
+const deleteList = () => {
+  const listId = event.target.parentElement.id;
+  const request = {
+    method: 'POST', url: `/todo/delete-list?id=${listId}`
+  };
+
+  xhrRequest(request, 201, updateLists);
 };
 
 const main = () => {

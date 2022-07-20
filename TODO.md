@@ -6,7 +6,7 @@
     - [x] todo/lists
     - [ ] todo/lists/id
     - [x] todo/add-list
-    - [ ] todo/delete
+    - [x] todo/delete
     - [ ] todo/add-item
     - [ ] todo/item/{done,undone}
   - [ ] Make middleware to load the users todo-list.

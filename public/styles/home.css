@@ -30,8 +30,11 @@ ul {
 }
 
 .list li {
-  padding: 1em 1em 0;
+  padding: 0em 1em 0;
   height: 3em;
   border: 1px solid gray;
   margin: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
