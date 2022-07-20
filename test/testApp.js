@@ -21,7 +21,7 @@ const users = {
 const todos = {
   'pk': {
     username: 'pk',
-    todos: ['buy something']
+    lists: ['buy something']
   }
 }
 
@@ -151,7 +151,7 @@ describe('GET /todo/lists', () => {
       .get('/todo/lists')
       .set('Cookie', cookies)
       .expect('content-type', /json/)
-      .expect(todos['pk'])
+      .expect(todos['pk'].lists)
       .expect(200, done)
   });
 });
