@@ -28,7 +28,7 @@ const loginHandler = (users) => (req, res) => {
   const session = createSession(username);
   req.session = session;
 
-  res.redirect('/home.html');
+  res.redirect('/todo/home');
 };
 
 module.exports = { loginHandler };

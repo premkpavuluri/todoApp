@@ -4,7 +4,11 @@ require('dotenv').config();
 
 const appConfig = {
   root: 'public',
-  templates: { login: 'login page', loginWithError: 'invalid login page' }
+  templates: {
+    login: 'login page',
+    loginWithError: 'invalid login page',
+    homePage: 'home page'
+  }
 };
 
 const users = {
@@ -67,7 +71,7 @@ describe('POST /login', () => {
     request(app)
       .post('/login')
       .send('username=pk&password=123')
-      .expect('location', '/home.html')
+      .expect('location', '/todo/home')
       .expect(302, done)
   });
 
@@ -78,5 +82,24 @@ describe('POST /login', () => {
       .send('username=unknown&password=123')
       .expect('location', '/login?invalid=true')
       .expect(302, done);
+  });
+});
+
+describe('GET /todo/home', () => {
+  it('Should serve home page on GET /todo/home', (done) => {
+    const app = createApp(appConfig, users);
+
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        request(app)
+          .get('/todo/home')
+          .set('Cookie', res.header['set-cookie'])
+          .expect('content-type', /html/)
+          .expect(200, done);
+      });
   });
 });

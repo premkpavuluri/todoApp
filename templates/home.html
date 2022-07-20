@@ -1,0 +1,53 @@
+<html>
+
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="/styles/home.css">
+</head>
+
+<body>
+  <header class="page-header">
+    <div class="icon-name">
+      <span>todo image</span>
+      <h1>TODO</h1>
+    </div>
+
+    <div>
+      <span>__USERNAME__</span>
+      <div class="logout">
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="create-list">
+      <h3>Create New TODO-list:</h3>
+
+      <form action="todo/add-list" method="post">
+        <div class="field">
+          <label for="title">Title:</label>
+          <input type="text" name="title" id="todo-title">
+        </div>
+
+        <input type="button" value="Create List">
+      </form>
+    </section>
+
+    <section class="view-list">
+      <h3>All TODO's</h3>
+
+      <div class="list">
+        <div class="listcard">
+          <div class="list-title" id="1">Personal</div>
+        </div>
+
+        <div class="listcard">
+          <div class="list-title" id="2">Home</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>

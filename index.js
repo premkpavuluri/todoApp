@@ -1,6 +1,6 @@
 const { createApp } = require('./src/app.js');
 require('dotenv').config();
-const { loadTemplates } = require('./src/loadTemplates.js');
+const { loadTemplates } = require('./src/utils/loadTemplates.js');
 
 const config = {
   root: 'public',
