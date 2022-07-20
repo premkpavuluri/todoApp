@@ -18,6 +18,13 @@ const users = {
   }
 };
 
+const todos = {
+  'pk': {
+    username: 'pk',
+    todos: ['buy something']
+  }
+}
+
 describe('GET /badRequest', () => {
   it('Should serve 404 on /badRequest', (done) => {
     const app = createApp(appConfig, users);
@@ -86,21 +93,28 @@ describe('POST /login', () => {
 });
 
 describe('GET /todo/home', () => {
-  it('Should serve home page on GET /todo/home', (done) => {
-    const app = createApp(appConfig, users);
+  let cookies;
+  let app;
 
+  beforeEach((done) => {
+    app = createApp(appConfig, users);
     request(app)
       .post('/login')
       .send('username=pk&password=123')
       .expect('location', '/todo/home')
       .expect(302)
       .end((err, res) => {
-        request(app)
-          .get('/todo/home')
-          .set('Cookie', res.header['set-cookie'])
-          .expect('content-type', /html/)
-          .expect(200, done);
+        cookies = res.header['set-cookie'];
+        done();
       });
+  });
+
+  it('Should serve home page on GET /todo/home', (done) => {
+    request(app)
+      .get('/todo/home')
+      .set('Cookie', cookies)
+      .expect('content-type', /html/)
+      .expect(200, done);
   });
 });
 
@@ -112,5 +126,32 @@ describe('GET /logout', () => {
       .get('/logout')
       .expect('location', '/login')
       .expect(302, done);
+  });
+});
+
+describe('GET /todo/lists', () => {
+  let cookies;
+  let app;
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todos);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should serve the lists of user on GET /todo/lists', (done) => {
+    request(app)
+      .get('/todo/lists')
+      .set('Cookie', cookies)
+      .expect('content-type', /json/)
+      .expect(todos['pk'])
+      .expect(200, done)
   });
 });

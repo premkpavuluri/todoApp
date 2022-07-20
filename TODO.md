@@ -1,12 +1,15 @@
 # TODO-App
 
 - **TODO:**
+  - [ ] Make script for home to generate lists on front-end.
   - [ ] Make middleware to validate user credentials.
   - [ ] Make api for:
-    - [ ] todo/lists
+    - [x] todo/lists
+    - [ ] todo/lists/id
     - [ ] todo/add
     - [ ] todo/delete
   - [ ] Make middleware to load the users todo-list.
+  - [ ] give home page if already logged in.
 
 - **DONE:**
   - [x] Implemente handler for home page.

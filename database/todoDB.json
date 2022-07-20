@@ -1,20 +1,4 @@
-const { createApp } = require('./src/app.js');
-require('dotenv').config();
-const { loadTemplates } = require('./src/utils/loadTemplates.js');
-
-const config = {
-  root: 'public',
-  templates: loadTemplates()
-};
-
-const users = {
-  'prem': {
-    username: 'prem',
-    password: 'hi'
-  }
-};
-
-const todos = {
+{
   "prem": {
     "username": "prem",
     "lastListId": 2,
@@ -50,13 +34,4 @@ const todos = {
       }
     ]
   }
-};
-
-const main = () => {
-  const app = createApp(config, users, todos);
-
-  const PORT = 8000;
-  app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
-};
-
-main();
+}

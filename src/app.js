@@ -7,8 +7,9 @@ const { loginHandler } = require('./handlers/loginHandler.js');
 const { authenticate } = require('./handlers/authenticate.js');
 const { serveHomePage } = require('./handlers/serveHomePage.js');
 const { logoutHandler } = require('./handlers/logoutHandler.js');
+const { serveLists } = require('./handlers/serveLists.js');
 
-const createApp = (appConfig, users) => {
+const createApp = (appConfig, users, todos) => {
   const app = express();
 
   if (process.env.ENV === 'PRODUCTION') {
@@ -30,9 +31,9 @@ const createApp = (appConfig, users) => {
   const todoRouter = express.Router();
   todoRouter.use(authenticate);
   todoRouter.get('/home', serveHomePage(appConfig.templates));
+  todoRouter.get('/lists', serveLists(todos));
 
   app.use('/todo', todoRouter);
-
   app.get('/logout', logoutHandler);
 
   return app;
