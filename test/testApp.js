@@ -70,6 +70,22 @@ describe('GET /login', () => {
       .expect('invalid login page')
       .expect(200, done);
   });
+
+  it('Should serve the home page if already logged in', (done) => {
+    const app = createApp(appConfig, users);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        request(app)
+          .get('/login')
+          .set('Cookie', res.header['set-cookie'])
+          .expect('location', '/todo/home')
+          .expect(302, done);
+      });
+  });
 });
 
 describe('POST /login', () => {

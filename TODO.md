@@ -10,9 +10,9 @@
     - [ ] todo/add-item
     - [ ] todo/item/{done,undone}
   - [ ] Make middleware to load the users todo-list.
-  - [ ] give home page if already logged in.
 
 - **DONE:**
+  - [x] give home page if already logged in.
   - [x] Make script for home to generate lists on front-end.
   - [x] Implemente handler for home page.
   - [x] Make router for /todo
