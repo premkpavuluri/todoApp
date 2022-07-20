@@ -1,6 +1,6 @@
 const request = require('supertest');
 const { createApp } = require('../src/app.js');
-// require('dotenv').config();
+require('dotenv').config();
 
 const appConfig = {
   root: 'public',

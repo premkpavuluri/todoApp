@@ -14,9 +14,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "cp envs/productionEnvs.txt .env; node index.js",
-    "test": "SESSION_NAME=\"sessionId\" SESSION_KEY=\"testkey\" mocha",
-    "w-test": "SESSION_NAME=\"sessionId\" SESSION_KEY=\"testkey\" mocha -w"
+    "start": "node index.js",
+    "setup": "bash setup.sh",
+    "test": "bash setupTest.sh & mocha",
+    "w-test": "bash setupTest.sh & mocha -w"
   },
   "repository": {
     "type": "git",
