@@ -8,9 +8,10 @@
     - [ ] todo/lists
     - [ ] todo/add
     - [ ] todo/delete
-  - [ ] Make logout handler
+    
 
 - **DONE:**
+  - [x] Make logout handler
   - [x] Make home page template.
   - [x] Make authenticator to restrict the user if not logged in.
   - [x] Create session for logged user.

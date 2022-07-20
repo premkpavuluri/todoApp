@@ -103,3 +103,14 @@ describe('GET /todo/home', () => {
       });
   });
 });
+
+describe('GET /logout', () => {
+  it('Should delete the session and redirect to /login', (done) => {
+    const app = createApp(appConfig, users);
+
+    request(app)
+      .get('/logout')
+      .expect('location', '/login')
+      .expect(302, done);
+  });
+});

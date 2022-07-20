@@ -5,7 +5,8 @@ const cookieSession = require('cookie-session');
 const { loginPageHandler } = require('./handlers/loginPage.js');
 const { loginHandler } = require('./handlers/loginHandler.js');
 const { authenticate } = require('./handlers/authenticate.js');
-const { serveHomePage } = require("./handlers/serveHomePage");
+const { serveHomePage } = require('./handlers/serveHomePage.js');
+const { logoutHandler } = require('./handlers/logoutHandler.js');
 
 const createApp = (appConfig, users) => {
   const app = express();
@@ -26,6 +27,8 @@ const createApp = (appConfig, users) => {
   app.post('/login', loginHandler(users));
 
   app.get('/todo/home', authenticate, serveHomePage(appConfig.templates));
+
+  app.get('/logout', logoutHandler);
 
   return app;
 };
