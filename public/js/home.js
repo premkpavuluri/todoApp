@@ -28,7 +28,8 @@ const generateHtml = ([tagName, attributes, ...body]) => {
 
 const generateList = ({ id, title }) => {
   const li = ['li', [['id', id]],
-    title, ['input',
+    ['a', [['href', `/todo/list/${id}`], ['class', 'list']], title],
+    ['input',
       [['type', 'button'], ['value', 'delete'],
       ['onclick', 'deleteList()']], ''
     ]];

@@ -1,0 +1,13 @@
+body {
+  margin: 20px auto;
+  width: 1080px;
+}
+
+header {
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.list-view {}

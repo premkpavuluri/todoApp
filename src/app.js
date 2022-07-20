@@ -10,8 +10,9 @@ const { logoutHandler } = require('./handlers/logoutHandler.js');
 const { serveLists } = require('./handlers/serveLists.js');
 const { addListHandler } = require('./handlers/addListHandler.js');
 const { deleteList } = require('./handlers/deleteList.js');
+const { serveList } = require('./handlers/serveList.js');
 
-const createApp = (appConfig, users, todos) => {
+const createApp = (appConfig, users, todosDB) => {
   const app = express();
 
   if (process.env.ENV === 'PRODUCTION') {
@@ -33,9 +34,10 @@ const createApp = (appConfig, users, todos) => {
   const todoRouter = express.Router();
   todoRouter.use(authenticate);
   todoRouter.get('/home', serveHomePage(appConfig.templates));
-  todoRouter.get('/lists', serveLists(todos));
-  todoRouter.post('/add-list', addListHandler(todos));
-  todoRouter.post('/delete-list', deleteList(todos))
+  todoRouter.get('/lists', serveLists(todosDB));
+  todoRouter.post('/add-list', addListHandler(todosDB));
+  todoRouter.post('/delete-list', deleteList(todosDB));
+  todoRouter.get('/list/:id', serveList(todosDB));
 
   app.use('/todo', todoRouter);
   app.get('/logout', logoutHandler);

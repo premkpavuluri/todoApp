@@ -14,7 +14,7 @@ const users = {
   }
 };
 
-const todos = {
+const todosDb = {
   "prem": {
     "username": "prem",
     "lastListId": 2,
@@ -53,7 +53,7 @@ const todos = {
 };
 
 const main = () => {
-  const app = createApp(config, users, todos);
+  const app = createApp(config, users, todosDb);
 
   const PORT = 8000;
   app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));

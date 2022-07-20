@@ -6,8 +6,9 @@ const loadTemplates = () => {
   const login = readFile('templates/login.html');
   const loginWithError = readFile('templates/invalidLogin.html');
   const homePage = readFile('templates/home.html');
+  const listPage = readFile('templates/list.html');
 
-  return { login, loginWithError, homePage };
+  return { login, loginWithError, homePage, listPage };
 };
 
 module.exports = { loadTemplates };
