@@ -26,7 +26,12 @@ const createApp = (appConfig, users) => {
   app.get('/login', loginPageHandler(appConfig.templates));
   app.post('/login', loginHandler(users));
 
-  app.get('/todo/home', authenticate, serveHomePage(appConfig.templates));
+  //Router for TODO
+  const todoRouter = express.Router();
+  todoRouter.use(authenticate);
+  todoRouter.get('/home', serveHomePage(appConfig.templates));
+
+  app.use('/todo', todoRouter);
 
   app.get('/logout', logoutHandler);
 

@@ -1,16 +1,16 @@
 # TODO-App
 
 - **TODO:**
-  - [ ] Make router for /todo
-  - [ ] Implemente handler for home page.
   - [ ] Make middleware to validate user credentials.
   - [ ] Make api for:
     - [ ] todo/lists
     - [ ] todo/add
     - [ ] todo/delete
-    
+  - [ ] Make middleware to load the users todo-list.
 
 - **DONE:**
+  - [x] Implemente handler for home page.
+  - [x] Make router for /todo
   - [x] Make logout handler
   - [x] Make home page template.
   - [x] Make authenticator to restrict the user if not logged in.
