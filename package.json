@@ -15,8 +15,8 @@
   "main": "index.js",
   "scripts": {
     "start": "cp envs/productionEnvs.txt .env; node index.js",
-    "test": "cp envs/testEnvs.txt .env; mocha",
-    "w-test": "cp envs/testEnvs.txt .env; mocha -w"
+    "test": "SESSION_NAME=\"sessionId\" SESSION_KEY=\"testkey\" mocha",
+    "w-test": "SESSION_NAME=\"sessionId\" SESSION_KEY=\"testkey\" mocha -w"
   },
   "repository": {
     "type": "git",
