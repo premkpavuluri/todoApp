@@ -1,12 +1,14 @@
 # TODO-App
 
-- **TODO:**
+- **TODO:** 
   - [ ] Make middleware to validate user credentials.
   - [ ] Make api for:
     - [x] todo/lists
     - [ ] todo/lists/id
-    - [ ] todo/add
+    - [x] todo/add-list
     - [ ] todo/delete
+    - [ ] todo/add-item
+    - [ ] todo/item/{done,undone}
   - [ ] Make middleware to load the users todo-list.
   - [ ] give home page if already logged in.
 

@@ -3,4 +3,5 @@ const serveLists = (todos) => (req, res, next) => {
 
   res.json(userTodos.lists);
 };
-exports.serveLists = serveLists;
+
+module.exports = { serveLists };

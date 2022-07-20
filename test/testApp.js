@@ -92,7 +92,18 @@ describe('POST /login', () => {
   });
 });
 
-describe('GET /todo/home', () => {
+describe('GET /logout', () => {
+  it('Should delete the session and redirect to /login', (done) => {
+    const app = createApp(appConfig, users);
+
+    request(app)
+      .get('/logout')
+      .expect('location', '/login')
+      .expect(302, done);
+  });
+});
+
+describe('GET /todo/home --Router', () => {
   let cookies;
   let app;
 
@@ -115,17 +126,6 @@ describe('GET /todo/home', () => {
       .set('Cookie', cookies)
       .expect('content-type', /html/)
       .expect(200, done);
-  });
-});
-
-describe('GET /logout', () => {
-  it('Should delete the session and redirect to /login', (done) => {
-    const app = createApp(appConfig, users);
-
-    request(app)
-      .get('/logout')
-      .expect('location', '/login')
-      .expect(302, done);
   });
 });
 
@@ -153,5 +153,31 @@ describe('GET /todo/lists', () => {
       .expect('content-type', /json/)
       .expect(todos['pk'].lists)
       .expect(200, done)
+  });
+});
+
+describe('POST /todo/add-list', () => {
+  let cookies;
+  let app;
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todos);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should add the list to database', (done) => {
+    request(app)
+      .post('/todo/add-list')
+      .send("title=hi")
+      .set('Cookie', cookies)
+      .expect(201, done)
   });
 });

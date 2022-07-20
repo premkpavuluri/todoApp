@@ -45,8 +45,26 @@ const updateLists = () => {
   xhrRequest(request, 200, (xhr) => renderLists(JSON.parse(xhr.responseText)));
 };
 
+const getFormData = () => {
+  const form = document.querySelector('form');
+  const formData = new FormData(form);
+  form.reset();
+
+  return new URLSearchParams(formData);
+};
+
+const sendList = () => {
+  const listInfo = getFormData();
+
+  const request = { method: 'POST', url: '/todo/add-list' };
+  xhrRequest(request, 201, updateLists, listInfo);
+};
+
 const main = () => {
   updateLists();
+
+  const createBtn = document.querySelector('#create-list');
+  createBtn.onclick = sendList;
 };
 
 window.onload = main;

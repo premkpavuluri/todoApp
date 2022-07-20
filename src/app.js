@@ -8,6 +8,7 @@ const { authenticate } = require('./handlers/authenticate.js');
 const { serveHomePage } = require('./handlers/serveHomePage.js');
 const { logoutHandler } = require('./handlers/logoutHandler.js');
 const { serveLists } = require('./handlers/serveLists.js');
+const { addListHandler } = require('./handlers/addListHandler.js');
 
 const createApp = (appConfig, users, todos) => {
   const app = express();
@@ -32,6 +33,7 @@ const createApp = (appConfig, users, todos) => {
   todoRouter.use(authenticate);
   todoRouter.get('/home', serveHomePage(appConfig.templates));
   todoRouter.get('/lists', serveLists(todos));
+  todoRouter.post('/add-list', addListHandler(todos));
 
   app.use('/todo', todoRouter);
   app.get('/logout', logoutHandler);
