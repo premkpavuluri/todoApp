@@ -8,7 +8,9 @@ const appConfig = {
     login: 'login page',
     loginWithError: 'invalid login page',
     homePage: 'home page',
-    listPage: 'this is listpage'
+    listPage: 'this is listpage',
+    signup: 'signup page',
+    signUpWithError: 'signup with error page'
   }
 };
 
@@ -53,13 +55,46 @@ describe('GET /', () => {
   });
 });
 
-describe('GET /signup.html', () => {
+describe('GET /sign-up', () => {
   it('Should serve signUp page on GET /signup.html', (done) => {
-    const app = createApp(appConfig, users);
+    const app = createApp(appConfig, users, todos);
     request(app)
-      .get('/signup.html')
+      .get('/sign-up')
+      .expect(appConfig.templates['signup'])
       .expect('content-type', /html/)
       .expect(200, done);
+  });
+
+  it('Should serve the invalid error signup page', (done) => {
+    const app = createApp(appConfig, users, todos);
+
+    request(app)
+      .get('/sign-up?invalid=true')
+      .expect(appConfig.templates['signUpWithError'])
+      .expect('content-type', /html/)
+      .expect(200, done);
+  });
+});
+
+
+describe('POST /sign-up', () => {
+  it('Should redirect to invalid signup if credentials or not valid', (done) => {
+    const app = createApp(appConfig, users, todos);
+    request(app)
+      .post('/sign-up')
+      .send('username=pk&password=123')
+      .expect('location', '/sign-up?invalid=true')
+      .expect(302, done);
+  });
+
+  it('Should redirect to login page if credentials are valid', (done) => {
+    const app = createApp(appConfig, users, todos);
+
+    request(app)
+      .post('/sign-up')
+      .send('username=a&password=123')
+      .expect('location', '/login')
+      .expect(302, done);
   });
 });
 

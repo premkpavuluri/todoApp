@@ -15,6 +15,7 @@ const { addItemHandler } = require('./handlers/addItemHandler.js');
 const { serveList } = require('./handlers/serveList.js');
 const { deleteItem } = require('./handlers/deleteItem.js');
 const { markItem } = require('./handlers/markItem.js');
+const { signUpPage, registerUser } = require('./handlers/signUpHandler.js');
 
 const createApp = (appConfig, users, todosDB) => {
   const app = express();
@@ -34,6 +35,9 @@ const createApp = (appConfig, users, todosDB) => {
   app.get('/login', loginPageHandler(appConfig.templates));
   app.post('/login', loginHandler(users));
 
+  app.get('/sign-up', signUpPage(appConfig.templates));
+  app.post('/sign-up', registerUser(users, todosDB));
+
   //Router for TODO
   const todoRouter = express.Router();
   todoRouter.use(authenticate);
@@ -46,6 +50,7 @@ const createApp = (appConfig, users, todosDB) => {
   todoRouter.post('/delete-item', deleteItem(todosDB));
   todoRouter.post('/mark-item', markItem(todosDB));
 
+  //TODO Api
   const todoApi = express.Router();
   todoApi.use(authenticate);
   todoApi.get('/list/:id', serveList(todosDB));

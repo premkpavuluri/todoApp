@@ -23,3 +23,7 @@
   flex-direction: column;
   margin: 1em 0;
 }
+
+#message {
+  color: red;
+}

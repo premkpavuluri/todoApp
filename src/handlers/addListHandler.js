@@ -16,7 +16,7 @@ const addListHandler = (todoDb) => (req, res) => {
   const { title, ...items } = req.body;
   const { username } = req.session;
 
-  todoDb[username].lastListId++;
+  todoDb[username].lastListId = todoDb[username].lastListId++ || 0;
   const id = todoDb[username].lastListId;
 
   const newTodos = generateTodos(items);
