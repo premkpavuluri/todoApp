@@ -28,6 +28,17 @@ const deleteItem = () => {
   xhrRequest(request, 201, updateItems, itemInfo);
 };
 
+const sendItemStatus = () => {
+  const { parentElement: { id }, checked } = event.target;
+  const listId = getFormData().get('listId');
+  const itemInfo = new URLSearchParams([
+    ['listId', listId], ['id', id], ['check', checked]
+  ]);
+  const request = { method: 'POST', url: '/todo/mark-item' };
+
+  xhrRequest(request, 201, updateItems, itemInfo);
+};
+
 const generateItem = ({ id, name, isDone }) => {
   const itemContainer = document.createElement('div');
   const checkbox = document.createElement('input');
@@ -39,6 +50,7 @@ const generateItem = ({ id, name, isDone }) => {
 
   checkbox.type = 'checkbox';
   checkbox.name = 'item';
+  checkbox.onclick = sendItemStatus;
   checkbox.checked = isDone;
 
   deleteBtn.type = 'button';

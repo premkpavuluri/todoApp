@@ -2,17 +2,17 @@
 
 - **TODO:** 
   - [ ] Give list name as untitled if empty.
-  - [ ] Make api for:
+  - [ ] Make middleware to load the users todo-list.
+
+- **DONE:**
+  - [x] Make api for:
     - [x] todo/lists
     - [x] todo/lists/id
     - [x] todo/add-list
     - [x] todo/delete
     - [x] todo/add-item
-    - [ ] todo/delete-item
-    - [ ] todo/item/{done,undone}
-  - [ ] Make middleware to load the users todo-list.
-
-- **DONE:**
+    - [x] todo/delete-item
+    - [x] todo/item/{done,undone}
   - [x] ~~Make middleware to validate user credentials.~~
   - [x] create empty items list for newly created list.
   - [x] give home page if already logged in.

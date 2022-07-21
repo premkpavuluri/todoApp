@@ -412,6 +412,48 @@ describe('POST /todo/delete-item', () => {
       .post('/todo/delete-item')
       .set('Cookie', cookies)
       .send('listId=1&id=1')
-      .expect(200, done);
+      .expect(201, done);
   });
+});
+
+describe('POST /todo/mark-item', () => {
+  let cookies;
+  let app;
+
+  const todoDb = {
+    'pk': {
+      username: 'pk',
+      lastListId: 1,
+      lists: [
+        {
+          id: 1,
+          title: 'a',
+          lastTodoId: 1,
+          todos: [{ id: 1, name: 'cool', isDone: false }]
+        }
+      ]
+    }
+  };
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todoDb);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should mark the item done/undone', (done) => {
+    request(app)
+      .post('/todo/mark-item')
+      .set('Cookie', cookies)
+      .send('listId=1&id=1&check=true')
+      .expect(201, done);
+  });
+
 });
