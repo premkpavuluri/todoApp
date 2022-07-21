@@ -42,7 +42,12 @@ const createApp = (appConfig, users, todosDB) => {
   todoRouter.get('/list/:id', serveListPage(todosDB, appConfig.templates));
   todoRouter.post('/add-item', addItemHandler(todosDB));
 
+  const todoApi = express.Router();
+  todoApi.use(authenticate);
+  todoApi.get('/list/:id', serveList(todosDB));
+
   app.use('/todo', todoRouter);
+  app.use('/api', todoApi);
   app.get('/logout', logoutHandler);
 
   return app;
