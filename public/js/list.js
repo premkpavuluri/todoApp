@@ -18,10 +18,21 @@ const getFormData = () => {
   return new URLSearchParams(formData);
 };
 
+const deleteItem = () => {
+  const listId = getFormData().get('listId');
+  console.log(listId);
+  const request = { method: 'POST', url: '/todo/delete-item' };
+  const id = event.target.parentElement.id;
+  const itemInfo = new URLSearchParams([['listId', listId], ['id', id]]);
+
+  xhrRequest(request, 201, updateItems, itemInfo);
+};
+
 const generateItem = ({ id, name, isDone }) => {
   const itemContainer = document.createElement('div');
   const checkbox = document.createElement('input');
   const lable = document.createElement('lable');
+  const deleteBtn = document.createElement('input');
 
   lable.innerText = name;
   itemContainer.id = id;
@@ -30,8 +41,14 @@ const generateItem = ({ id, name, isDone }) => {
   checkbox.name = 'item';
   checkbox.checked = isDone;
 
+  deleteBtn.type = 'button';
+  deleteBtn.value = 'delete';
+  deleteBtn.className = 'delele-item';
+  deleteBtn.onclick = deleteItem;
+
   itemContainer.appendChild(checkbox);
   itemContainer.appendChild(lable);
+  itemContainer.appendChild(deleteBtn);
 
   return itemContainer;
 };
