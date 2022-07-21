@@ -22,15 +22,15 @@ const todosDb = {
       {
         "id": 1,
         "title": "Travel",
-        "lastTodoId": "todoid-2",
+        "lastTodoId": 2,
         "todos": [
           {
-            "id": "todoid-1",
+            "id": 1,
             "name": "pack lauggage",
             "isDone": false
           },
           {
-            "id": "todoid-2",
+            "id": 2,
             "name": "check map",
             "isDone": false
           }
@@ -39,10 +39,10 @@ const todosDb = {
       {
         "id": 2,
         "title": "Food",
-        "lastTodoId": "todoid-1",
+        "lastTodoId": 1,
         "todos": [
           {
-            "id": "todoid-1",
+            "id": 1,
             "name": "Buy vegitables",
             "isDone": false
           }

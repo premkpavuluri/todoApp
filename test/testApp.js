@@ -27,8 +27,8 @@ const todos = {
       {
         id: 1,
         title: 'a',
-        lastTodoId: "todoId-1",
-        todos: [{ id: "todoId-1", name: 'cool', isDone: false }]
+        lastTodoId: 1,
+        todos: [{ id: 1, name: 'cool', isDone: false }]
       }
     ]
   }
@@ -192,8 +192,8 @@ describe('POST /todo/add-list', () => {
         {
           id: 1,
           title: 'a',
-          lastTodoId: "todoId-1",
-          todos: [{ id: "todoId-1", name: 'cool', isDone: false }]
+          lastTodoId: 1,
+          todos: [{ id: 1, name: 'cool', isDone: false }]
         }
       ]
     }
@@ -216,6 +216,14 @@ describe('POST /todo/add-list', () => {
     request(app)
       .post('/todo/add-list')
       .send("title=hi")
+      .set('Cookie', cookies)
+      .expect(201, done)
+  });
+
+  it('Should add the items along with list', (done) => {
+    request(app)
+      .post('/todo/add-list')
+      .send("title=new&item=a&item=b")
       .set('Cookie', cookies)
       .expect(201, done)
   });
@@ -257,7 +265,7 @@ describe('GET /todo/list/id', () => {
         {
           id: 1,
           title: 'a',
-          lastTodoId: "todoId-1",
+          lastTodoId: 0,
           todos: []
         }
       ]

@@ -1,13 +1,27 @@
-const addListHandler = (todos) => (req, res) => {
-  const { title } = req.body;
+const generateTodos = (items) => {
+  const itemsList = items['item'];
+
+  if (!itemsList) {
+    return [];
+  };
+
+  return itemsList.map((name, index) => {
+    return { id: index + 1, name, isDone: false }
+  });
+};
+
+const addListHandler = (todoDb) => (req, res) => {
+  const { title, ...items } = req.body;
   const { username } = req.session;
 
-  todos[username].lastListId++;
-  const id = todos[username].lastListId;
-  const lastTodoId = "todoId-0";
+  todoDb[username].lastListId++;
+  const id = todoDb[username].lastListId;
 
-  const newList = { title, id, lastTodoId, todos: [] };
-  todos[username].lists.unshift(newList);
+  const newTodos = generateTodos(items);
+  const lastTodoId = newTodos.length;
+
+  const newList = { title, id, lastTodoId, todos: newTodos };
+  todoDb[username].lists.unshift(newList);
 
   res.sendStatus(201);
 };

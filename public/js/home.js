@@ -75,11 +75,23 @@ const deleteList = () => {
   xhrRequest(request, 201, updateLists);
 };
 
+const addItemFeild = () => {
+  const itemsFeild = document.querySelector('.items');
+  const newItemFeild = document.createElement('input');
+
+  newItemFeild.type = 'text';
+  newItemFeild.name = 'item';
+  itemsFeild.appendChild(newItemFeild);
+};
+
 const main = () => {
   updateLists();
 
-  const createBtn = document.querySelector('#create-list');
-  createBtn.onclick = sendList;
+  const createListBtn = document.querySelector('#create-list');
+  createListBtn.onclick = sendList;
+
+  const createItemBtn = document.querySelector('#create-item');
+  createItemBtn.onclick = addItemFeild;
 };
 
 window.onload = main;

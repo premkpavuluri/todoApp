@@ -1,12 +1,13 @@
 # TODO-App
 
 - **TODO:** 
+  - [ ] Give list name as untitled if empty.
   - [ ] Make api for:
     - [x] todo/lists
     - [x] todo/lists/id
     - [x] todo/add-list
     - [x] todo/delete
-    - [ ] todo/add-item
+    - [x] todo/add-item
     - [ ] todo/delete-item
     - [ ] todo/item/{done,undone}
   - [ ] Make middleware to load the users todo-list.
