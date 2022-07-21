@@ -15,8 +15,9 @@ const generateItems = (items) => {
 };
 
 const generateListPage = (username, userLists, template) => {
-  const { title, todos } = userLists;
+  const { id, title, todos } = userLists;
   let page = template.replace('__USERNAME__', username);
+  page = template.replace('__LISTID__', id);
   page = page.replace('__TITLE__', title);
   page = page.replace('__ITEMS__', generateItems(todos));
 

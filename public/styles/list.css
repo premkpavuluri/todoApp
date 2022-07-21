@@ -9,3 +9,10 @@ header {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.create-item {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}

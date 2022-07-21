@@ -3,6 +3,7 @@
 <head>
   <title>List</title>
   <link rel="stylesheet" href="/styles/list.css">
+  <script src="/js/list.js"></script>
 </head>
 
 <body>
@@ -18,8 +19,18 @@
   </header>
 
   <main>
+
+    <section class="create-item">
+      <form action="todo/add-item" method="post">
+        <input type="text" name="listId" value="__LISTID__" hidden>
+        <input type="text" name="item" placeholder="Enter Your TODO">
+      </form>
+
+      <input type="button" value="Add Item" id="create-button">
+    </section>
+
     <section class="list-view">
-      <h3>__TITLE__</h3>
+      <h2>__TITLE__</h2>
 
       <div class="items">
         <div>

@@ -11,6 +11,7 @@ const { serveLists } = require('./handlers/serveLists.js');
 const { addListHandler } = require('./handlers/addListHandler.js');
 const { deleteList } = require('./handlers/deleteList.js');
 const { serveList } = require('./handlers/serveList.js');
+const { addItemHandler } = require('./handlers/addItemHandler.js');
 
 const createApp = (appConfig, users, todosDB) => {
   const app = express();
@@ -38,6 +39,7 @@ const createApp = (appConfig, users, todosDB) => {
   todoRouter.post('/add-list', addListHandler(todosDB));
   todoRouter.post('/delete-list', deleteList(todosDB));
   todoRouter.get('/list/:id', serveList(todosDB, appConfig.templates));
+  todoRouter.post('/add-item', addItemHandler(todosDB));
 
   app.use('/todo', todoRouter);
   app.get('/logout', logoutHandler);

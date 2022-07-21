@@ -1,11 +1,13 @@
 const generateTodos = (items) => {
-  const itemsList = items['item'];
+  const allItems = items['item'];
 
-  if (!itemsList) {
+  if (!allItems) {
     return [];
   };
 
-  return itemsList.map((name, index) => {
+  const listItems = Array.isArray(allItems) ? allItems : [allItems];
+
+  return listItems.map((name, index) => {
     return { id: index + 1, name, isDone: false }
   });
 };

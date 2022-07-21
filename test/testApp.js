@@ -292,3 +292,44 @@ describe('GET /todo/list/id', () => {
       .expect(200, done)
   });
 });
+
+describe('POST /todo/add-item', () => {
+  let cookies;
+  let app;
+
+  const todoDb = {
+    'pk': {
+      username: 'pk',
+      lastListId: 1,
+      lists: [
+        {
+          id: 1,
+          title: 'a',
+          lastTodoId: 1,
+          todos: [{ id: 1, name: 'cool', isDone: false }]
+        }
+      ]
+    }
+  };
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todoDb);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should add item to list', (done) => {
+    request(app)
+      .post('/todo/add-item')
+      .send('listId=1&item=new')
+      .set('Cookie', cookies)
+      .expect(201, done);
+  });
+});
