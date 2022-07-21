@@ -75,13 +75,28 @@ const deleteList = () => {
   xhrRequest(request, 201, updateLists);
 };
 
+const deleteItem = () => {
+  event.target.parentElement.remove();
+};
+
 const addItemFeild = () => {
   const itemsFeild = document.querySelector('.items');
+  const itemContainer = document.createElement('div');
   const newItemFeild = document.createElement('input');
+  const deleteItemBtn = document.createElement('input');
 
   newItemFeild.type = 'text';
   newItemFeild.name = 'item';
-  itemsFeild.appendChild(newItemFeild);
+
+  deleteItemBtn.type = 'button';
+  deleteItemBtn.value = 'Delete';
+  deleteItemBtn.onclick = deleteItem;
+
+  itemContainer.className = 'feild-container';
+
+  itemContainer.appendChild(newItemFeild);
+  itemContainer.appendChild(deleteItemBtn);
+  itemsFeild.appendChild(itemContainer);
 };
 
 const main = () => {

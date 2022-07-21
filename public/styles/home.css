@@ -40,7 +40,18 @@ ul {
 }
 
 .items {
+  margin: 10px 5px;
   display: flex;
   flex-direction: column;
   width: 200px;
+}
+
+.items * {
+  margin: 2px 0;
+}
+
+.feild-container {
+  width: 230px;
+  display: flex;
+  justify-content: space-between;
 }
