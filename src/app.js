@@ -37,7 +37,7 @@ const createApp = (appConfig, users, todosDB) => {
   todoRouter.get('/lists', serveLists(todosDB));
   todoRouter.post('/add-list', addListHandler(todosDB));
   todoRouter.post('/delete-list', deleteList(todosDB));
-  todoRouter.get('/list/:id', serveList(todosDB));
+  todoRouter.get('/list/:id', serveList(todosDB, appConfig.templates));
 
   app.use('/todo', todoRouter);
   app.get('/logout', logoutHandler);

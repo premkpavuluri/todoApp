@@ -7,7 +7,8 @@ const appConfig = {
   templates: {
     login: 'login page',
     loginWithError: 'invalid login page',
-    homePage: 'home page'
+    homePage: 'home page',
+    listPage: 'this is listpage'
   }
 };
 
@@ -21,7 +22,15 @@ const users = {
 const todos = {
   'pk': {
     username: 'pk',
-    lists: [{ id: 1 }]
+    lastListId: 1,
+    lists: [
+      {
+        id: 1,
+        title: 'a',
+        lastTodoId: "todoId-1",
+        todos: [{ id: "todoId-1", name: 'cool', isDone: false }]
+      }
+    ]
   }
 }
 
@@ -175,9 +184,23 @@ describe('GET /todo/lists', () => {
 describe('POST /todo/add-list', () => {
   let cookies;
   let app;
+  const todoDb = {
+    'pk': {
+      username: 'pk',
+      lastListId: 1,
+      lists: [
+        {
+          id: 1,
+          title: 'a',
+          lastTodoId: "todoId-1",
+          todos: [{ id: "todoId-1", name: 'cool', isDone: false }]
+        }
+      ]
+    }
+  }
 
   beforeEach((done) => {
-    app = createApp(appConfig, users, todos);
+    app = createApp(appConfig, users, todoDb);
     request(app)
       .post('/login')
       .send('username=pk&password=123')
@@ -220,5 +243,44 @@ describe('POST /todo/delete-list', () => {
       .post('/todo/delete-list?id=1')
       .set('Cookie', cookies)
       .expect(201, done)
+  });
+});
+
+describe('GET /todo/list/id', () => {
+  let cookies;
+  let app;
+  const todoDb = {
+    'pk': {
+      username: 'pk',
+      lastListId: 1,
+      lists: [
+        {
+          id: 1,
+          title: 'a',
+          lastTodoId: "todoId-1",
+          todos: []
+        }
+      ]
+    }
+  };
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todoDb);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should serve the list page', (done) => {
+    request(app)
+      .get('/todo/list/1')
+      .set('Cookie', cookies)
+      .expect(200, done)
   });
 });

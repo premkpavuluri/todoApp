@@ -1,5 +1,5 @@
 const generateAttributes = (list) => {
-  return list.map(([key, value]) => `${key}="${value}"`).join('');
+  return list.map(([key, value]) => `${key}="${value}"`).join(' ');
 };
 
 const tag = (name, attributes, content) =>
