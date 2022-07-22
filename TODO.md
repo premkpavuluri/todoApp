@@ -4,9 +4,9 @@
   - [ ] Give list name as untitled if empty.
   - [ ] Make middleware to load the users todo-list.
   - [ ] Seperate api's from handlers.
-  - [ ] Include login button on signup, and signup button in loginpage.
 
 - **DONE:**
+  - [x] Include login button on signup, and signup button in loginpage.
   - [x] Implement handler for signup 
     - [x] On successfull signup create database for new user.
   - [x] Make api for:

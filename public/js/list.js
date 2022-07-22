@@ -39,25 +39,46 @@ const sendItemStatus = () => {
   xhrRequest(request, 201, updateItems, itemInfo);
 };
 
-const generateItem = ({ id, name, isDone }) => {
-  const itemContainer = document.createElement('div');
+const generateCheckBox = (name, check) => {
   const checkbox = document.createElement('input');
-  const lable = document.createElement('lable');
-  const deleteBtn = document.createElement('input');
-
-  lable.innerText = name;
-  itemContainer.id = id;
 
   checkbox.type = 'checkbox';
-  checkbox.name = 'item';
-  checkbox.onclick = sendItemStatus;
-  checkbox.checked = isDone;
+  checkbox.name = name;
+  checkbox.checked = check;
 
-  deleteBtn.type = 'button';
-  deleteBtn.value = 'delete';
-  deleteBtn.className = 'delele-item';
+  return checkbox;
+};
+
+const generateLable = (innerText) => {
+  const lable = document.createElement('label');
+
+  lable.innerText = innerText;
+
+  return lable;
+};
+
+const generateButton = (id, className, value) => {
+  const button = document.createElement('input');
+
+  button.type = 'button';
+  button.id = id;
+  button.className = className;
+  button.value = value;
+
+  return button;
+};
+
+const generateItem = ({ id, name, isDone }) => {
+  const itemContainer = document.createElement('div');
+  const checkbox = generateCheckBox('item', isDone);
+  const lable = generateLable(name);
+  const deleteBtn = generateButton('', 'delete-item', 'delete');
+
+  checkbox.onclick = sendItemStatus;
+
   deleteBtn.onclick = deleteItem;
 
+  itemContainer.id = id;
   itemContainer.appendChild(checkbox);
   itemContainer.appendChild(lable);
   itemContainer.appendChild(deleteBtn);
@@ -67,14 +88,14 @@ const generateItem = ({ id, name, isDone }) => {
 
 const renderItems = (lists) => {
   const items = JSON.parse(lists).todos;
-  const itemsContainer = document.createElement('div');
+  const itemsList = document.createElement('div');
 
   items.forEach(item => {
-    itemsContainer.appendChild(generateItem(item));
+    itemsList.appendChild(generateItem(item));
   });
 
-  const listsBox = document.querySelector('.items');
-  listsBox.replaceChild(itemsContainer, listsBox.firstChild);
+  const itemsContainer = document.querySelector('.items');
+  itemsContainer.replaceChild(itemsList, itemsContainer.firstChild);
 };
 
 const updateItems = (xhr) => {

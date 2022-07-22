@@ -11,51 +11,6 @@ const config = {
   writeFile: fs.writeFileSync
 };
 
-// const users = {
-//   'prem': {
-//     username: 'prem',
-//     password: 'hi'
-//   }
-// };
-
-// const todosDb = {
-//   "prem": {
-//     "username": "prem",
-//     "lastListId": 2,
-//     "lists": [
-//       {
-//         "id": 1,
-//         "title": "Travel",
-//         "lastTodoId": 2,
-//         "todos": [
-//           {
-//             "id": 1,
-//             "name": "pack lauggage",
-//             "isDone": false
-//           },
-//           {
-//             "id": 2,
-//             "name": "check map",
-//             "isDone": false
-//           }
-//         ]
-//       },
-//       {
-//         "id": 2,
-//         "title": "Food",
-//         "lastTodoId": 1,
-//         "todos": [
-//           {
-//             "id": 1,
-//             "name": "Buy vegitables",
-//             "isDone": false
-//           }
-//         ]
-//       }
-//     ]
-//   }
-// };
-
 const readFile = (fileName) => fs.readFileSync(fileName);
 
 const main = () => {

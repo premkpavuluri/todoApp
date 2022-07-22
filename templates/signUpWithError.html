@@ -10,6 +10,8 @@
     <section class="signup">
       <h1>Sign Up</h1>
 
+      <div class="error-message">Invalid Credentials</div>
+
       <form action="/sign-up" method="post">
         <div>
           <label for="username">Username:</label>
@@ -23,8 +25,12 @@
 
         <input type="submit" value="Sign Up">
       </form>
-      <div class="error-message">Invalid Credentials</div>
     </section>
+
+    <div class="login">
+      <label for="login">Already have an Account?</label>
+      <a href="/login">Login</a>
+    </div>
   </main>
 </body>
 
