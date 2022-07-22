@@ -11,38 +11,48 @@ const xhrRequest = (req, onStatus, handler, body = '') => {
   xhr.send(body);
 };
 
-const generateAttributes = (list) => {
-  return list.map(([key, value]) => `${key}="${value}"`).join('');
-};
+const generateHtml = ([tagName, attributes, ...content]) => {
+  const element = document.createElement(tagName);
+  addAttributes(element, attributes);
 
-const tag = (name, attributes, content) =>
-  `<${name} ${generateAttributes(attributes)}>${content}</${name}>`;
+  content.forEach(innerElement => {
+    element.append(Array.isArray(innerElement) ? generateHtml(innerElement) : innerElement);
+  });
 
-const generateHtml = ([tagName, attributes, ...body]) => {
-  const innerHTML = body.map(element => {
-    return Array.isArray(element) ? generateHtml(element) : element;
-  }).join('');
-
-  return tag(tagName, attributes, innerHTML);
+  return element;
 };
 
 const generateList = ({ id, title }) => {
-  const li = ['li', [['id', id]],
-    ['a', [['href', `/todo/list/${id}`], ['class', 'list']], title],
-    ['input',
-      [['type', 'button'], ['value', 'delete'],
-      ['onclick', 'deleteList()']], ''
-    ]];
+  const li = document.createElement('li');
+  const aTag = document.createElement('a');
+  const deleteButton = document.createElement('input');
 
-  return generateHtml(li);
+  aTag.href = `/todo/list/${id}`;
+  aTag.className = 'list';
+  aTag.innerText = title;
+
+  deleteButton.type = 'button';
+  deleteButton.value = 'delete';
+  deleteButton.onclick = deleteList;
+
+  li.id = id;
+  li.appendChild(aTag);
+  li.appendChild(deleteButton);
+
+  return li;
 };
 
 const renderLists = (lists) => {
-  const htmlLists = lists.map(generateList).join('');
-  const ul = generateHtml(['ul', [['class', 'list']], htmlLists]);
+  const ul = document.createElement('ul');
+  ul.className = 'list';
+
+  lists.forEach(list => {
+    const li = generateList(list);
+    ul.appendChild(generateList(list));
+  });
 
   const listElement = document.querySelector('.all-lists');
-  listElement.innerHTML = ul;
+  listElement.replaceChild(ul, listElement.firstChild);
 };
 
 const updateLists = () => {

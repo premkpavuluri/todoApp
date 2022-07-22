@@ -1,7 +1,9 @@
 const addItemHandler = (todoDb) => (req, res, next) => {
-  const { listId, item } = req.body;
+  let { listId, item } = req.body;
   const id = new Date().getTime();
   const isDone = false;
+
+  item = item ? item : 'Untitled todo';
 
   const lists = todoDb[req.session.username].lists;
   const targetList = lists.find(list => list.id === +listId);

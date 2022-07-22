@@ -1,11 +1,13 @@
 # TODO-App
 
 - **TODO:** 
-  - [ ] Give list name as untitled if empty.
   - [ ] Make middleware to load the users todo-list.
   - [ ] Seperate api's from handlers.
+  - [ ] Restrict the accessing of files.
+  - [ ] Make 404 page.
 
 - **DONE:**
+  - [x] Give list name as untitled if empty.
   - [x] Extract routers from app.js
   - [x] Include login button on signup, and signup button in loginpage.
   - [x] Implement handler for signup 
