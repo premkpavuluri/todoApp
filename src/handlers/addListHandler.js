@@ -16,13 +16,12 @@ const addListHandler = (todoDb) => (req, res, next) => {
   const { title, ...items } = req.body;
   const { username } = req.session;
 
-  todoDb[username].lastListId = todoDb[username].lastListId++ || 1;
+  todoDb[username].lastListId = ++todoDb[username].lastListId || 1;
+
   const id = todoDb[username].lastListId;
-
   const newTodos = generateTodos(items);
-  const lastTodoId = newTodos.length;
 
-  const newList = { title, id, lastTodoId, todos: newTodos };
+  const newList = { title, id, todos: newTodos };
   todoDb[username].lists.unshift(newList);
 
   res.sendStatus(201);

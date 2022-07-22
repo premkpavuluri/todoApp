@@ -6,6 +6,7 @@
   - [ ] Seperate api's from handlers.
 
 - **DONE:**
+  - [x] Extract routers from app.js
   - [x] Include login button on signup, and signup button in loginpage.
   - [x] Implement handler for signup 
     - [x] On successfull signup create database for new user.
