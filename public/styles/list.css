@@ -1,6 +1,11 @@
 body {
   margin: 20px auto;
   width: 1080px;
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
 }
 
 header {

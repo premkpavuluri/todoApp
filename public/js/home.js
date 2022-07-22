@@ -32,7 +32,7 @@ const generateList = ({ id, title }) => {
   aTag.innerText = title;
 
   deleteButton.type = 'button';
-  deleteButton.value = 'delete';
+  deleteButton.value = 'Delete';
   deleteButton.onclick = deleteList;
 
   li.id = id;

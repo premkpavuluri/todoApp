@@ -9,12 +9,15 @@
 <body>
   <header class="page-header">
     <div class="icon-name">
-      <span>todo image</span>
-      <h1>TODO</h1>
+      <h1 class="thick">TODO</h1>
     </div>
 
     <div>
-      <span>__USERNAME__</span>
+      <h1 class="message thick">
+        Welcome __USERNAME__
+      </h1>
+    </div>
+    <div>
       <div class="logout">
         <a href="/logout">Logout</a>
       </div>
@@ -22,28 +25,32 @@
   </header>
 
   <main>
-    <section class="create-list">
-      <h3>Create New TODO-list:</h3>
+    <section class="box">
+      <h3 class="thin">Create new TODO list</h3>
 
       <form action="/todo/add-list" method="post">
         <div class="field">
           <label for="title">Title:</label>
           <input type="text" name="title" id="todo-title" required>
         </div>
+
+        <div class="add-item">
+          <label for="items">Add TODOs:</label>
+          <input type="button" value="+" id="create-item">
+        </div>
+
         <div class="items">
-          <label for="items">Items:</label>
         </div>
       </form>
 
-      <div class="create-buttons">
-        <input type="button" value="Create Item" id="create-item">
+      <div>
         <input type="button" value="Create List" id="create-list">
       </div>
     </section>
 
     <section class="view-list">
-      <h3>All TODO's</h3>
-      <div class="all-lists">
+      <h3 class="thick">All TODOs</h3>
+      <div class="all-lists scroll">
 
       </div>
     </section>

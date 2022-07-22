@@ -109,6 +109,10 @@ const sendItem = () => {
   const itemInfo = getFormData();
   const req = { method: 'POST', url: '/todo/add-item' };
 
+  if (!itemInfo.get('item')) {
+    return;
+  }
+
   xhrRequest(req, 201, updateItems, itemInfo);
 };
 

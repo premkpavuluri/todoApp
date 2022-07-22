@@ -9,16 +9,16 @@
   <main class="page">
     <form action="/sign-up" method="post">
       <fieldset class="signup">
-        <legend>Sign up</legend>
+        <legend>Sign Up</legend>
 
         <div class="input-section">
           <label for="username">Username:</label>
-          <input type="text" name="username">
+          <input type="text" name="username" required>
         </div>
 
         <div class="input-section">
           <label for="password">Password:</label>
-          <input type="password" name="password" id="password">
+          <input type="password" name="password" id="password" required>
         </div>
 
         <input type="submit" value="Sign Up" id="submit-btn">
@@ -26,7 +26,7 @@
     </form>
 
     <div class="login">
-      <label for="login">Already have an Account?</label>
+      <label for="login">Already have an account?</label>
       <a href="/login">Login</a>
     </div>
   </main>
