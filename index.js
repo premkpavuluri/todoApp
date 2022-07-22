@@ -1,10 +1,14 @@
 const { createApp } = require('./src/app.js');
 require('dotenv').config();
 const { loadTemplates } = require('./src/utils/loadTemplates.js');
+const fs = require('fs');
 
 const config = {
   root: 'public',
-  templates: loadTemplates()
+  templates: loadTemplates(),
+  dbPath: './database/todoDb.json',
+  credentialsPath: './database/users.json',
+  writeFile: fs.writeFileSync
 };
 
 const users = {

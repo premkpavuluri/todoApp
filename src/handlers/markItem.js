@@ -1,4 +1,4 @@
-const markItem = (todoDb) => (req, res) => {
+const markItem = (todoDb) => (req, res, next) => {
   const { listId, id, check } = req.body;
   const { username } = req.session;
 
@@ -7,5 +7,6 @@ const markItem = (todoDb) => (req, res) => {
   todo.isDone = check === 'true';
 
   res.sendStatus(201);
+  next();
 };
 exports.markItem = markItem;

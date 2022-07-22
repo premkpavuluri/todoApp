@@ -1,4 +1,4 @@
-const addItemHandler = (todoDb) => (req, res) => {
+const addItemHandler = (todoDb) => (req, res, next) => {
   const { listId, item } = req.body;
   const id = new Date().getTime();
   const isDone = false;
@@ -8,6 +8,7 @@ const addItemHandler = (todoDb) => (req, res) => {
   targetList.todos.push({ id, name: item, isDone });
 
   res.sendStatus(201);
+  next();
 };
 
 module.exports = { addItemHandler };

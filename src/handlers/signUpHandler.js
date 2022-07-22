@@ -10,7 +10,7 @@ const allocateDb = (username, db) => {
   db[username] = { username, lists: [] };
 };
 
-const registerUser = (users, todoDb) => (req, res) => {
+const registerUser = (users, todoDb) => (req, res, next) => {
   const { username, password } = req.body;
 
   if (users[username] || !username || !password) {
@@ -21,6 +21,7 @@ const registerUser = (users, todoDb) => (req, res) => {
   allocateDb(username, todoDb);
 
   res.redirect('/login');
+  next();
 };
 
 module.exports = { signUpPage, registerUser };

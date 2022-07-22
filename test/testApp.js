@@ -11,7 +11,10 @@ const appConfig = {
     listPage: 'this is listpage',
     signup: 'signup page',
     signUpWithError: 'signup with error page'
-  }
+  },
+  writeFile: (x) => x,
+  dbPath: 'dbpath',
+  credentialPath: 'usersPath'
 };
 
 const users = {

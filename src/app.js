@@ -16,6 +16,7 @@ const { serveList } = require('./handlers/serveList.js');
 const { deleteItem } = require('./handlers/deleteItem.js');
 const { markItem } = require('./handlers/markItem.js');
 const { signUpPage, registerUser } = require('./handlers/signUpHandler.js');
+const { persistData } = require('./handlers/persistData.js');
 
 const createApp = (appConfig, users, todosDB) => {
   const app = express();
@@ -36,19 +37,30 @@ const createApp = (appConfig, users, todosDB) => {
   app.post('/login', loginHandler(users));
 
   app.get('/sign-up', signUpPage(appConfig.templates));
-  app.post('/sign-up', registerUser(users, todosDB));
+  app.post('/sign-up',
+    registerUser(users, todosDB), persistData(todosDB, users, appConfig));
 
   //Router for TODO
   const todoRouter = express.Router();
   todoRouter.use(authenticate);
   todoRouter.get('/home', serveHomePage(appConfig.templates));
   todoRouter.get('/lists', serveLists(todosDB));
-  todoRouter.post('/add-list', addListHandler(todosDB));
-  todoRouter.post('/delete-list', deleteList(todosDB));
+  todoRouter.post('/add-list',
+    addListHandler(todosDB), persistData(todosDB, users, appConfig));
+
+  todoRouter.post('/delete-list',
+    deleteList(todosDB), persistData(todosDB, users, appConfig));
+
   todoRouter.get('/list/:id', serveListPage(todosDB, appConfig.templates));
-  todoRouter.post('/add-item', addItemHandler(todosDB));
-  todoRouter.post('/delete-item', deleteItem(todosDB));
-  todoRouter.post('/mark-item', markItem(todosDB));
+
+  todoRouter.post('/add-item',
+    addItemHandler(todosDB), persistData(todosDB, users, appConfig));
+
+  todoRouter.post('/delete-item',
+    deleteItem(todosDB), persistData(todosDB, users, appConfig));
+
+  todoRouter.post('/mark-item',
+    markItem(todosDB), persistData(todosDB, users, appConfig));
 
   //TODO Api
   const todoApi = express.Router();

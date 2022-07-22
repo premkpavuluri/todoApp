@@ -1,4 +1,4 @@
-const deleteList = (todos) => (req, res) => {
+const deleteList = (todos) => (req, res, next) => {
   const { id } = req.query;
   const { username } = req.session;
   const userLists = todos[username].lists;
@@ -7,6 +7,7 @@ const deleteList = (todos) => (req, res) => {
   todos[username].lists = newList;
 
   res.sendStatus(201);
+  next();
 };
 
 module.exports = { deleteList };

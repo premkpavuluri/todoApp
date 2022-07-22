@@ -12,7 +12,7 @@ const generateTodos = (items) => {
   });
 };
 
-const addListHandler = (todoDb) => (req, res) => {
+const addListHandler = (todoDb) => (req, res, next) => {
   const { title, ...items } = req.body;
   const { username } = req.session;
 
@@ -26,6 +26,7 @@ const addListHandler = (todoDb) => (req, res) => {
   todoDb[username].lists.unshift(newList);
 
   res.sendStatus(201);
+  next();
 };
 
 module.exports = { addListHandler };
