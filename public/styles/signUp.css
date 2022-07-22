@@ -7,9 +7,32 @@
 }
 
 .signup {
+  padding: 1em 0 0;
+  width: 400px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+legend {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 100;
+}
+
+.input-section {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  height: 2em;
+  margin: 1em 1em;
+}
+
+#submit-btn {
+  width: 150px;
+  height: 2em;
+  margin: 2em;
 }
 
 .error-message {
