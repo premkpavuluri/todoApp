@@ -80,11 +80,12 @@ const deleteItemFeilds = () => {
 const sendList = (event) => {
   const listInfo = getFormData();
 
-  deleteItemFeilds();
   event.preventDefault();
 
   const request = { method: 'POST', url: '/todo/add-list' };
   xhrRequest(request, 201, updateLists, listInfo);
+
+  deleteItemFeilds();
 };
 
 const deleteList = () => {
