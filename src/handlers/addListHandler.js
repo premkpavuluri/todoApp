@@ -13,11 +13,10 @@ const generateTodos = (items) => {
 };
 
 const addListHandler = (todoDb) => (req, res, next) => {
-  let { title, ...items } = req.body;
+  const { title, ...items } = req.body;
   const { username } = req.session;
 
   todoDb[username].lastListId = ++todoDb[username].lastListId || 1;
-  title = title ? title : 'Untitled list';
 
   const id = todoDb[username].lastListId;
   const newTodos = generateTodos(items);

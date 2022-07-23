@@ -3,11 +3,9 @@ const addItemHandler = (todoDb) => (req, res, next) => {
   const id = new Date().getTime();
   const isDone = false;
 
-  item = item ? item : 'Untitled todo';
-
   const lists = todoDb[req.session.username].lists;
   const targetList = lists.find(list => list.id === +listId);
-  targetList.todos.push({ id, name: item, isDone });
+  targetList.todos.unshift({ id, name: item, isDone });
 
   res.sendStatus(201);
   next();

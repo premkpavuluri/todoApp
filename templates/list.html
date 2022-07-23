@@ -9,7 +9,8 @@
 <body>
   <header>
     <a href="/todo/home">Home</a>
-    <h2>__TITLE__</h2>
+    <h1 class="thick">__TITLE__</h1>
+
     <div>
       <span>__USERNAME__</span>
       <div class="logout">
@@ -20,20 +21,17 @@
 
   <main>
 
-    <section class="create-item">
-      <form action="todo/add-item" method="post">
-        <input type="text" name="listId" value="__LISTID__" hidden>
-        <input type="text" name="item" placeholder="Enter Your TODO">
-      </form>
+    <form action="todo/add-item" method="post">
+      <input type="text" name="listId" value="__LISTID__" hidden>
 
-      <input type="button" value="Add Item" id="create-button">
-    </section>
-
-    <section class="list-view">
-
-      <div class="items">
+      <div class="create-item">
+        <input type="text" name="item" placeholder="Enter your TODO" id="prompt" required>
+        <input type="button" value="+" id="create-button">
       </div>
-    </section>
+    </form>
+
+    <div class="items">
+    </div>
   </main>
 </body>
 

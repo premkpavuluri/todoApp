@@ -69,8 +69,19 @@ const getFormData = () => {
   return new URLSearchParams(formData);
 };
 
-const sendList = () => {
+const deleteItemFeilds = () => {
+  const feildContainer = document.querySelector('.feild-container');
+
+  while (feildContainer.childElementCount) {
+    feildContainer.removeChild(feildContainer.firstChild);
+  }
+};
+
+const sendList = (event) => {
   const listInfo = getFormData();
+
+  deleteItemFeilds();
+  event.preventDefault();
 
   const request = { method: 'POST', url: '/todo/add-list' };
   xhrRequest(request, 201, updateLists, listInfo);
@@ -112,8 +123,7 @@ const addItemFeild = () => {
 const main = () => {
   updateLists();
 
-  const createListBtn = document.querySelector('#create-list');
-  createListBtn.onclick = sendList;
+  document.querySelector('form').addEventListener('submit', sendList);
 
   const createItemBtn = document.querySelector('#create-item');
   createItemBtn.onclick = addItemFeild;

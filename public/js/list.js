@@ -14,6 +14,7 @@ const xhrRequest = (req, onStatus, handler, body = '') => {
 const getFormData = () => {
   const form = document.querySelector('form');
   const formData = new FormData(form);
+  form.reset();
 
   return new URLSearchParams(formData);
 };
@@ -79,6 +80,7 @@ const generateItem = ({ id, name, isDone }) => {
   deleteBtn.onclick = deleteItem;
 
   itemContainer.id = id;
+  itemContainer.className = 'item';
   itemContainer.appendChild(checkbox);
   itemContainer.appendChild(lable);
   itemContainer.appendChild(deleteBtn);
