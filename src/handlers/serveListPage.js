@@ -1,7 +1,6 @@
-const generateListPage = (username, { id, title }, template) => {
+const generateListPage = (username, { id }, template) => {
   let page = template.replace('__USERNAME__', username);
   page = page.replace('__LISTID__', id);
-  page = page.replace('__TITLE__', title);
 
   return page;
 };

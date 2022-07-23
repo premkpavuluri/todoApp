@@ -9,18 +9,12 @@
 <body>
   <header class="page-header">
     <div class="icon-name">
-      <h1 class="thick">TODO</h1>
+      <h1 class="thick"><a href="/todo/home">TODO</a></h1>
     </div>
 
-    <div>
-      <h1 class="message thick">
-        Welcome __USERNAME__
-      </h1>
-    </div>
-    <div>
-      <div class="logout">
-        <a href="/logout">Logout</a>
-      </div>
+    <div class="logout">
+      <span>__USERNAME__</span>
+      <a href="/logout">Logout</a>
     </div>
   </header>
 
@@ -35,7 +29,7 @@
         </div>
 
         <div class="add-item">
-          <label for="items">Add TODOs:</label>
+          <label for="items" class="thin">Add TODOs:</label>
           <input type="button" value="+" id="create-item">
         </div>
 

@@ -73,7 +73,7 @@ const generateItem = ({ id, name, isDone }) => {
   const itemContainer = document.createElement('div');
   const checkbox = generateCheckBox('item', isDone);
   const lable = generateLable(name);
-  const deleteBtn = generateButton('', 'delete-item', 'delete');
+  const deleteBtn = generateButton('', 'delete-item', 'Delete');
 
   checkbox.onclick = sendItemStatus;
 
@@ -88,8 +88,14 @@ const generateItem = ({ id, name, isDone }) => {
   return itemContainer;
 };
 
+const updateTitle = (title) => {
+  document.querySelector('#list-title').innerText = title;
+};
+
 const renderItems = (lists) => {
-  const items = JSON.parse(lists).todos;
+  const { title, todos: items } = JSON.parse(lists);
+  updateTitle(title);
+
   const itemsList = document.createElement('div');
 
   items.forEach(item => {
@@ -100,7 +106,7 @@ const renderItems = (lists) => {
   itemsContainer.replaceChild(itemsList, itemsContainer.firstChild);
 };
 
-const updateItems = (xhr) => {
+const updateItems = (response) => {
   const listId = getFormData().get('listId');
   const request = { method: 'GET', url: `/api/list/${listId}` };
 

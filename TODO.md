@@ -5,6 +5,7 @@
   - [ ] Seperate api's from handlers.
   - [ ] Restrict the accessing of files.
   - [ ] Make 404 page.
+  - [ ] Style landing page.
 
 - **DONE:**
   - [x] Give list name as untitled if empty.
