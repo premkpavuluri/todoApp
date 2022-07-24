@@ -2,6 +2,7 @@ const request = require('supertest');
 const { createApp } = require('../src/app.js');
 require('dotenv').config();
 const assert = require('assert');
+const { title } = require('process');
 
 const appConfig = {
   root: 'public',
@@ -582,6 +583,69 @@ describe('POST /todo/edit-item', () => {
       .end((err, res) => {
         assert.equal(todoDb['pk'].lists[0].todos['0'].name, 'nice');
         done(err);
+      });
+  });
+});
+
+describe('GET /api/search', () => {
+  let cookies;
+  let app;
+
+  const todoDb = {
+    'pk': {
+      username: 'pk',
+      lastListId: 2,
+      lists: [
+        {
+          id: 1,
+          title: 'abc',
+          todos: [{ id: 11, name: 'cool', isDone: false }]
+        },
+        {
+          id: 2,
+          title: 'bef',
+          todos: [{ id: 12, name: 'buy', isDone: true }]
+        }
+      ]
+    }
+  };
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todoDb);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should serve lists based on key', (done) => {
+    request(app)
+      .get('/api/search?category=list&key=ab')
+      .set('Cookie', cookies)
+      .expect('content-type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        assert.deepStrictEqual(
+          res.body, JSON.stringify([todoDb['pk'].lists[0]]));
+        done();
+      })
+  });
+
+  it('Should serve items based on key', (done) => {
+    request(app)
+      .get('/api/search?category=item&key=buy')
+      .set('Cookie', cookies)
+      .expect('content-type', /json/)
+      .expect(200)
+      .end((err, res) => {
+        assert.deepStrictEqual(
+          res.body, JSON.stringify([todoDb['pk'].lists[1].todos[0]]));
+        done();
       });
   });
 });
