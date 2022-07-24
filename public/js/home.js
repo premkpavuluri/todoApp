@@ -11,33 +11,56 @@ const xhrRequest = (req, onStatus, handler, body = '') => {
   xhr.send(body);
 };
 
-const generateHtml = ([tagName, attributes, ...content]) => {
-  const element = document.createElement(tagName);
-  addAttributes(element, attributes);
+const updateListName = () => {
+  if (event.key !== 'Enter') {
+    return;
+  }
 
-  content.forEach(innerElement => {
-    element.append(Array.isArray(innerElement) ? generateHtml(innerElement) : innerElement);
-  });
+  const { value, parentElement: { id } } = event.target;
+  const listInfo = new URLSearchParams([['id', id], ['title', value]]);
 
-  return element;
+  const request = { method: 'POST', url: '/todo/edit-list' };
+  xhrRequest(request, 201, updateLists, listInfo);
+};
+
+const makeListEditable = (listId) => {
+  const listName = document.getElementById(listId).querySelector('.item-name');
+  const inputFeild = document.createElement('input');
+
+  inputFeild.classList = listName.className;
+  inputFeild.value = listName.innerText;
+  inputFeild.addEventListener('keydown', updateListName);
+
+  listName.replaceWith(inputFeild);
+  inputFeild.focus()
 };
 
 const generateList = ({ id, title }) => {
   const li = document.createElement('li');
   const aTag = document.createElement('a');
   const deleteButton = document.createElement('input');
+  const editButton = document.createElement('input');
+  const container = document.createElement('div');
 
-  aTag.href = `/todo/list/${id}`;
-  aTag.className = 'list';
   aTag.innerText = title;
+  aTag.className = 'item-name';
+  aTag.href = `/todo/list/${id}`;
+
+  editButton.type = 'button';
+  editButton.value = 'edit';
+  editButton.onclick = () => makeListEditable(id);
 
   deleteButton.type = 'button';
   deleteButton.value = 'Delete';
-  deleteButton.onclick = deleteList;
+  deleteButton.onclick = () => deleteList(id);
+
+  container.className = 'options';
+  container.appendChild(editButton);
+  container.appendChild(deleteButton);
 
   li.id = id;
   li.appendChild(aTag);
-  li.appendChild(deleteButton);
+  li.appendChild(container);
 
   return li;
 };
@@ -47,12 +70,11 @@ const renderLists = (lists) => {
   ul.className = 'list';
 
   lists.forEach(list => {
-    const li = generateList(list);
     ul.appendChild(generateList(list));
   });
 
   const listElement = document.querySelector('.all-lists');
-  listElement.replaceChild(ul, listElement.firstChild);
+  listElement.firstChild.replaceWith(ul);
 };
 
 const updateLists = () => {
@@ -70,11 +92,8 @@ const getFormData = () => {
 };
 
 const deleteItemFeilds = () => {
-  const feildContainer = document.querySelector('.feild-container');
-
-  while (feildContainer.childElementCount) {
-    feildContainer.removeChild(feildContainer.firstChild);
-  }
+  const items = document.querySelector('.items');
+  items.innerHTML = null;
 };
 
 const sendList = (event) => {
@@ -88,8 +107,7 @@ const sendList = (event) => {
   deleteItemFeilds();
 };
 
-const deleteList = () => {
-  const listId = event.target.parentElement.id;
+const deleteList = (listId) => {
   const request = {
     method: 'POST', url: `/todo/delete-list?id=${listId}`
   };
@@ -109,6 +127,7 @@ const addItemFeild = () => {
 
   newItemFeild.type = 'text';
   newItemFeild.name = 'item';
+  newItemFeild.required = true;
 
   deleteItemBtn.type = 'button';
   deleteItemBtn.value = 'Delete';
@@ -124,7 +143,7 @@ const addItemFeild = () => {
 const main = () => {
   updateLists();
 
-  document.querySelector('form').addEventListener('submit', sendList);
+  document.querySelector('form').onsubmit = sendList;
 
   const createItemBtn = document.querySelector('#create-item');
   createItemBtn.onclick = addItemFeild;

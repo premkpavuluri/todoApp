@@ -1,6 +1,7 @@
 const request = require('supertest');
 const { createApp } = require('../src/app.js');
 require('dotenv').config();
+const assert = require('assert');
 
 const appConfig = {
   root: 'public',
@@ -78,7 +79,6 @@ describe('GET /sign-up', () => {
       .expect(200, done);
   });
 });
-
 
 describe('POST /sign-up', () => {
   it('Should redirect to invalid signup if credentials or not valid', (done) => {
@@ -494,4 +494,94 @@ describe('POST /todo/mark-item', () => {
       .expect(201, done);
   });
 
+});
+
+describe('POST /todo/edit-list', () => {
+  let cookies;
+  let app;
+
+  const todoDb = {
+    'pk': {
+      username: 'pk',
+      lastListId: 1,
+      lists: [
+        {
+          id: 1,
+          title: 'a',
+          lastTodoId: 1,
+          todos: [{ id: 1, name: 'cool', isDone: false }]
+        }
+      ]
+    }
+  };
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todoDb);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should Edit the list name on POST /todo/edit-list', (done) => {
+    request(app)
+      .post('/todo/edit-list')
+      .send('id=1&title=b')
+      .set('Cookie', cookies)
+      .expect(201)
+      .end((err, res) => {
+        assert.equal(todoDb['pk'].lists[0].title, 'b');
+        done(err);
+      });
+  });
+});
+
+describe('POST /todo/edit-item', () => {
+  let cookies;
+  let app;
+
+  const todoDb = {
+    'pk': {
+      username: 'pk',
+      lastListId: 1,
+      lists: [
+        {
+          id: 1,
+          title: 'a',
+          lastTodoId: 1,
+          todos: [{ id: 1, name: 'cool', isDone: false }]
+        }
+      ]
+    }
+  };
+
+  beforeEach((done) => {
+    app = createApp(appConfig, users, todoDb);
+    request(app)
+      .post('/login')
+      .send('username=pk&password=123')
+      .expect('location', '/todo/home')
+      .expect(302)
+      .end((err, res) => {
+        cookies = res.header['set-cookie'];
+        done();
+      });
+  });
+
+  it('Should edit the item', (done) => {
+    request(app)
+      .post('/todo/edit-item')
+      .send('id=1&listId=1&item=nice')
+      .set('Cookie', cookies)
+      .expect(201)
+      .end((err, res) => {
+        assert.equal(todoDb['pk'].lists[0].todos['0'].name, 'nice');
+        done(err);
+      });
+  });
 });

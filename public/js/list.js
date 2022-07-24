@@ -21,7 +21,6 @@ const getFormData = () => {
 
 const deleteItem = () => {
   const listId = getFormData().get('listId');
-  console.log(listId);
   const request = { method: 'POST', url: '/todo/delete-item' };
   const id = event.target.parentElement.id;
   const itemInfo = new URLSearchParams([['listId', listId], ['id', id]]);
@@ -113,8 +112,10 @@ const updateItems = (response) => {
   xhrRequest(request, 200, (xhr) => renderItems(xhr.responseText));
 };
 
-const sendItem = () => {
+const sendItem = (event) => {
   const itemInfo = getFormData();
+  event.preventDefault();
+
   const req = { method: 'POST', url: '/todo/add-item' };
 
   if (!itemInfo.get('item')) {
@@ -127,8 +128,7 @@ const sendItem = () => {
 const main = () => {
   updateItems();
 
-  const createItemBtn = document.getElementById('create-button');
-  createItemBtn.onclick = sendItem;
+  document.querySelector('form').onsubmit = sendItem;
 };
 
 window.onload = main;

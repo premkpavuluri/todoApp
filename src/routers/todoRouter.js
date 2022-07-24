@@ -10,6 +10,8 @@ const { persistData } = require('../handlers/persistData.js');
 const { serveHomePage } = require('../handlers/serveHomePage.js');
 const { serveListPage } = require('../handlers/serveListPage.js');
 const { serveLists } = require('../handlers/serveLists.js');
+const { editListHandler, editItemHandler } =
+  require('../handlers/editHandler.js');
 
 const createTodoRouter = (config, users, db) => {
   const todoRouter = express.Router();
@@ -34,6 +36,10 @@ const createTodoRouter = (config, users, db) => {
     deleteItem(db), persistData(db, users, config));
 
   todoRouter.post('/mark-item', markItem(db), persistData(db, users, config));
+
+  todoRouter.post('/edit-list', editListHandler(db));
+
+  todoRouter.post('/edit-item', editItemHandler(db));
 
   return todoRouter;
 };

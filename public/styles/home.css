@@ -104,3 +104,10 @@ ul {
   padding: 0 0.2em;
   border-left: 1px solid black;
 }
+
+.item-name {
+  font-size: 1em;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}

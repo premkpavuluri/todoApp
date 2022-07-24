@@ -9,4 +9,5 @@ const markItem = (todoDb) => (req, res, next) => {
   res.sendStatus(201);
   next();
 };
-exports.markItem = markItem;
+
+module.exports = { markItem };
