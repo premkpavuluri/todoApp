@@ -19,10 +19,9 @@ const getFormData = () => {
   return new URLSearchParams(formData);
 };
 
-const deleteItem = () => {
+const deleteItem = (id) => {
   const listId = getFormData().get('listId');
   const request = { method: 'POST', url: '/todo/delete-item' };
-  const id = event.target.parentElement.id;
   const itemInfo = new URLSearchParams([['listId', listId], ['id', id]]);
 
   xhrRequest(request, 201, updateItems, itemInfo);
@@ -39,50 +38,65 @@ const sendItemStatus = () => {
   xhrRequest(request, 201, updateItems, itemInfo);
 };
 
-const generateCheckBox = (name, check) => {
-  const checkbox = document.createElement('input');
+const updateItemName = () => {
+  if (event.key !== 'Enter') {
+    return;
+  }
 
-  checkbox.type = 'checkbox';
-  checkbox.name = name;
-  checkbox.checked = check;
+  const { value, parentElement: { id } } = event.target;
+  const listId = getFormData().get('listId');
+  const itemInfo =
+    new URLSearchParams([['listId', listId], ['id', id], ['item', value]]);
+  const request = { method: 'POST', url: '/todo/edit-item' };
 
-  return checkbox;
+  xhrRequest(request, 201, updateItems, itemInfo);
 };
 
-const generateLable = (innerText) => {
-  const lable = document.createElement('label');
+const makeItemEditable = (id) => {
+  const itemElement = document.getElementById(id).querySelector('.item-name');
+  const inputFeild = document.createElement('input');
 
-  lable.innerText = innerText;
+  inputFeild.className = itemElement.className;
+  inputFeild.value = itemElement.innerText;
+  inputFeild.onkeydown = updateItemName;
 
-  return lable;
-};
-
-const generateButton = (id, className, value) => {
-  const button = document.createElement('input');
-
-  button.type = 'button';
-  button.id = id;
-  button.className = className;
-  button.value = value;
-
-  return button;
+  itemElement.replaceWith(inputFeild);
+  inputFeild.focus();
 };
 
 const generateItem = ({ id, name, isDone }) => {
   const itemContainer = document.createElement('div');
-  const checkbox = generateCheckBox('item', isDone);
-  const lable = generateLable(name);
-  const deleteBtn = generateButton('', 'delete-item', 'Delete');
+  const checkbox = document.createElement('input');
+  const lable = document.createElement('label');
+  const deleteBtn = document.createElement('input');
+  const editBtn = document.createElement('input');
+  const optionContainer = document.createElement('div');
 
+  checkbox.type = 'checkbox';
+  checkbox.name = 'item';
+  checkbox.checked = isDone;
   checkbox.onclick = sendItemStatus;
 
-  deleteBtn.onclick = deleteItem;
+  lable.className = 'item-name';
+  lable.innerText = name;
 
+  deleteBtn.type = 'button';
+  deleteBtn.className = 'delete-item';
+  deleteBtn.value = 'Delete';
+  deleteBtn.onclick = () => deleteItem(id);
+
+  editBtn.type = 'button';
+  editBtn.value = 'edit';
+  editBtn.onclick = () => makeItemEditable(id);
+
+  optionContainer.className = 'options';
+  optionContainer.appendChild(editBtn);
+  optionContainer.appendChild(deleteBtn);
   itemContainer.id = id;
   itemContainer.className = 'item';
   itemContainer.appendChild(checkbox);
   itemContainer.appendChild(lable);
-  itemContainer.appendChild(deleteBtn);
+  itemContainer.appendChild(optionContainer);
 
   return itemContainer;
 };

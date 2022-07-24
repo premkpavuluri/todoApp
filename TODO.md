@@ -6,6 +6,10 @@
   - [ ] Restrict the accessing of files.
   - [ ] Make 404 page.
   - [ ] Style landing page.
+  - [ ] Implement search feature.
+    - [ ] search by list name
+    - [ ] search by item name
+    - [ ] search by completion
 
 - **DONE:**
   - [x] Give list name as untitled if empty.

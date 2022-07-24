@@ -111,3 +111,9 @@ ul {
   border: none;
   text-decoration: none;
 }
+
+.options {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
