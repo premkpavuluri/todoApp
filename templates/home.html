@@ -2,8 +2,10 @@
 
 <head>
   <title>Home</title>
+  <link rel="stylesheet" href="/styles/common.css">
   <link rel="stylesheet" href="/styles/home.css">
   <script src="/js/home.js"></script>
+  <script src="/js/search.js"></script>
 </head>
 
 <body>
@@ -19,30 +21,21 @@
   </header>
 
   <main>
-    <section class="box">
-      <h3 class="thin">Create new TODO list</h3>
-
-      <form action="/todo/add-list" method="post">
-        <div class="field">
-          <label for="title">Title:</label>
-          <input type="text" name="title" id="todo-title" required>
-        </div>
-
-        <div class="add-item">
-          <label for="items" class="thin">Add TODOs:</label>
-          <input type="button" value="+" id="create-item">
-        </div>
-
-        <div class="items">
-        </div>
-
-        <input type="submit" value="Create List" id="create-list">
+    <div class="createlist-search">
+      <form action="add-list" method="post" id="create-list-form">
+        <input type="text" name="title" id="title-feild" placeholder="Add list here" class="bar text-align" required>
+        <input type="submit" value="+" id="create-btn">
       </form>
-    </section>
+
+      <div id="search">
+        <input type="text" name="key" id="search-bar" class="bar text-align" placeholder="Search here">
+      </div>
+    </div>
 
     <section class="view-list scroll">
-      <h3 class="thick">All TODOs</h3>
-      <div class="all-lists">
+      <h3 class="thick margin-trim">All TODOs</h3>
+
+      <div class="all-lists scroll">
 
       </div>
     </section>

@@ -11,6 +11,14 @@ const xhrRequest = (req, onStatus, handler, body = '') => {
   xhr.send(body);
 };
 
+const getFormData = (id) => {
+  const form = document.getElementById(id);
+  const formData = new FormData(form);
+  form.reset();
+
+  return new URLSearchParams(formData);
+};
+
 const updateListName = () => {
   if (event.key !== 'Enter') {
     return;
@@ -35,6 +43,14 @@ const makeListEditable = (listId) => {
   inputFeild.focus()
 };
 
+const deleteList = (listId) => {
+  const request = {
+    method: 'POST', url: `/todo/delete-list?id=${listId}`
+  };
+
+  xhrRequest(request, 201, updateLists);
+};
+
 const generateList = ({ id, title }) => {
   const li = document.createElement('li');
   const aTag = document.createElement('a');
@@ -47,7 +63,7 @@ const generateList = ({ id, title }) => {
   aTag.href = `/todo/list/${id}`;
 
   editButton.type = 'button';
-  editButton.value = 'edit';
+  editButton.value = 'Edit';
   editButton.onclick = () => makeListEditable(id);
 
   deleteButton.type = 'button';
@@ -83,70 +99,21 @@ const updateLists = () => {
   xhrRequest(request, 200, (xhr) => renderLists(JSON.parse(xhr.responseText)));
 };
 
-const getFormData = () => {
-  const form = document.querySelector('form');
-  const formData = new FormData(form);
-  form.reset();
-
-  return new URLSearchParams(formData);
-};
-
-const deleteItemFeilds = () => {
-  const items = document.querySelector('.items');
-  items.innerHTML = null;
-};
-
 const sendList = (event) => {
-  const listInfo = getFormData();
+  const listInfo = getFormData('create-list-form');
 
   event.preventDefault();
 
   const request = { method: 'POST', url: '/todo/add-list' };
   xhrRequest(request, 201, updateLists, listInfo);
-
-  deleteItemFeilds();
-};
-
-const deleteList = (listId) => {
-  const request = {
-    method: 'POST', url: `/todo/delete-list?id=${listId}`
-  };
-
-  xhrRequest(request, 201, updateLists);
-};
-
-const deleteItem = () => {
-  event.target.parentElement.remove();
-};
-
-const addItemFeild = () => {
-  const itemsFeild = document.querySelector('.items');
-  const itemContainer = document.createElement('div');
-  const newItemFeild = document.createElement('input');
-  const deleteItemBtn = document.createElement('input');
-
-  newItemFeild.type = 'text';
-  newItemFeild.name = 'item';
-  newItemFeild.required = true;
-
-  deleteItemBtn.type = 'button';
-  deleteItemBtn.value = 'Delete';
-  deleteItemBtn.onclick = deleteItem;
-
-  itemContainer.className = 'feild-container';
-
-  itemContainer.appendChild(newItemFeild);
-  itemContainer.appendChild(deleteItemBtn);
-  itemsFeild.appendChild(itemContainer);
 };
 
 const main = () => {
   updateLists();
 
-  document.querySelector('form').onsubmit = sendList;
+  document.getElementById('create-list-form').onsubmit = sendList;
 
-  const createItemBtn = document.querySelector('#create-item');
-  createItemBtn.onclick = addItemFeild;
+  document.getElementById('search-form').onsubmit = search;
 };
 
 window.onload = main;

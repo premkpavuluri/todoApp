@@ -11,8 +11,8 @@ const xhrRequest = (req, onStatus, handler, body = '') => {
   xhr.send(body);
 };
 
-const getFormData = () => {
-  const form = document.querySelector('form');
+const getFormData = (id) => {
+  const form = document.getElementById(id);
   const formData = new FormData(form);
   form.reset();
 
@@ -20,7 +20,7 @@ const getFormData = () => {
 };
 
 const deleteItem = (id) => {
-  const listId = getFormData().get('listId');
+  const listId = getFormData('create-item-form').get('listId');
   const request = { method: 'POST', url: '/todo/delete-item' };
   const itemInfo = new URLSearchParams([['listId', listId], ['id', id]]);
 
@@ -29,7 +29,7 @@ const deleteItem = (id) => {
 
 const sendItemStatus = () => {
   const { parentElement: { id }, checked } = event.target;
-  const listId = getFormData().get('listId');
+  const listId = getFormData('create-item-form').get('listId');
   const itemInfo = new URLSearchParams([
     ['listId', listId], ['id', id], ['check', checked]
   ]);
@@ -44,7 +44,7 @@ const updateItemName = () => {
   }
 
   const { value, parentElement: { id } } = event.target;
-  const listId = getFormData().get('listId');
+  const listId = getFormData('create-item-form').get('listId');
   const itemInfo =
     new URLSearchParams([['listId', listId], ['id', id], ['item', value]]);
   const request = { method: 'POST', url: '/todo/edit-item' };
@@ -86,7 +86,7 @@ const generateItem = ({ id, name, isDone }) => {
   deleteBtn.onclick = () => deleteItem(id);
 
   editBtn.type = 'button';
-  editBtn.value = 'edit';
+  editBtn.value = 'Edit';
   editBtn.onclick = () => makeItemEditable(id);
 
   optionContainer.className = 'options';
@@ -120,14 +120,14 @@ const renderItems = (lists) => {
 };
 
 const updateItems = (response) => {
-  const listId = getFormData().get('listId');
+  const listId = getFormData('create-item-form').get('listId');
   const request = { method: 'GET', url: `/api/list/${listId}` };
 
   xhrRequest(request, 200, (xhr) => renderItems(xhr.responseText));
 };
 
 const sendItem = (event) => {
-  const itemInfo = getFormData();
+  const itemInfo = getFormData('create-item-form');
   event.preventDefault();
 
   const req = { method: 'POST', url: '/todo/add-item' };

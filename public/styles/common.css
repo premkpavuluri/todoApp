@@ -1,0 +1,34 @@
+:root {
+  --font-s: 20px;
+  --font-m: 22px;
+  --font-l: 25px;
+  --primary-color: gray;
+  --secondary-color: lightgray;
+}
+
+.logout a {
+  margin: 0 0.2em;
+  padding: 0 0.4em;
+  border-left: 1px solid black;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+.thin {
+  font-weight: 200;
+}
+
+.thick {
+  font-weight: 400;
+}
+
+.scroll {
+  overflow: scroll;
+}
