@@ -604,7 +604,7 @@ describe('GET /api/search', () => {
         {
           id: 2,
           title: 'bef',
-          todos: [{ id: 12, name: 'buy', isDone: true }]
+          todos: [{ id: 12, name: 'buy nothing', isDone: true }]
         }
       ]
     }
@@ -633,7 +633,7 @@ describe('GET /api/search', () => {
         assert.deepStrictEqual(
           res.body, JSON.stringify([todoDb['pk'].lists[0]]));
         done();
-      })
+      });
   });
 
   it('Should serve items based on key', (done) => {
@@ -644,7 +644,7 @@ describe('GET /api/search', () => {
       .expect(200)
       .end((err, res) => {
         assert.deepStrictEqual(
-          res.body, JSON.stringify([todoDb['pk'].lists[1].todos[0]]));
+          res.body, JSON.stringify([todoDb['pk'].lists[1]]));
         done();
       });
   });

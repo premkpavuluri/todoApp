@@ -6,9 +6,10 @@ const generateTodos = (items) => {
   };
 
   const listItems = Array.isArray(allItems) ? allItems : [allItems];
+  let id = new Date().getTime();
 
-  return listItems.map((name, index) => {
-    return { id: index + 1, name, isDone: false }
+  return listItems.map((name) => {
+    return { id: id + 1, name, isDone: false }
   });
 };
 
