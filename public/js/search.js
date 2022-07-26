@@ -102,15 +102,16 @@ const performSearch = (query, todoData) => {
   const category = query.get('category');
   let filtered = [];
 
-  updateViewHeader('Search results');
 
   if (category === 'list') {
     filtered = searchList(todoData, key);
+    updateViewHeader('Search results');
     renderLists(filtered);
   }
 
   if (category === 'items') {
     filtered = searchItems(todoData, key);
+    updateViewHeader('Search results');
     renderListAndItems(filtered);
   }
 };

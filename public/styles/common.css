@@ -4,7 +4,8 @@
   --font-l: 25px;
   --primary-color: gray;
   --secondary-color: lightgray;
-  --bg-color: whitesmoke;
+  --bg-color: rgb(211, 232, 240);
+  --selected-content: whitesmoke;
 }
 
 .logout a {
@@ -32,4 +33,10 @@ a:hover {
 
 .scroll {
   overflow: scroll;
+}
+
+#create-btn {
+  width: 45px;
+  height: 2em;
+  font-size: 1em;
 }

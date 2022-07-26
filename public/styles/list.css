@@ -54,14 +54,9 @@ main {
 
 #prompt {
   width: 700px;
-  height: 3em;
-  font-size: 0.7em;
+  height: 2em;
+  font-size: 1em;
   text-align: center;
-}
-
-#create-button {
-  height: 3em;
-  width: 3em;
 }
 
 .items {

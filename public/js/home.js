@@ -19,13 +19,13 @@ const getFormData = (id) => {
   return new URLSearchParams(formData);
 };
 
-const updateListName = () => {
+const updateListName = (listId) => {
   if (event.key !== 'Enter') {
     return;
   }
 
-  const { value, parentElement: { id } } = event.target;
-  const listInfo = new URLSearchParams([['id', id], ['title', value]]);
+  const { value } = event.target;
+  const listInfo = new URLSearchParams([['id', listId], ['title', value]]);
 
   const request = { method: 'POST', url: '/todo/edit-list' };
   xhrRequest(request, 201, updateLists, listInfo);
@@ -37,7 +37,7 @@ const makeListEditable = (listId) => {
 
   inputFeild.classList = listName.className;
   inputFeild.value = listName.innerText;
-  inputFeild.addEventListener('keydown', updateListName);
+  inputFeild.addEventListener('keydown', () => updateListName(listId));
 
   listName.replaceWith(inputFeild);
   inputFeild.focus()

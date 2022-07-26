@@ -18,3 +18,7 @@
 - **Delete:**
   - Can be able to `delete` the todo `list`.
   - Can be able to `delete` the todo `item`.
+
+- **Search:**
+  - `Search` by `list` title.
+  - `Search` by `item` name.
