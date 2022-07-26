@@ -6,12 +6,12 @@
   - [ ] Restrict the accessing of files.
   - [ ] Make 404 page.
   - [ ] Style landing page.
-  - [ ] Implement search feature.
-    - [x] search by list name
-    - [x] search by item name
-    - [ ] search by completion
 
 - **DONE:**
+  - [x] Implement search feature.
+    - [x] search by list name
+    - [x] search by item name
+    - [x] search by completion
   - [x] Give list name as untitled if empty.
   - [x] Extract routers from app.js
   - [x] Include login button on signup, and signup button in loginpage.

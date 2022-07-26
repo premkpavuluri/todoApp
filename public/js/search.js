@@ -97,23 +97,48 @@ const renderListAndItems = (lists) => {
   listElement.firstChild.replaceWith(ul);
 };
 
+const filterByCompletion = (lists, key, status) => {
+  const searchResult = [];
+
+  lists.forEach(({ id, title, todos }) => {
+    const matchedTodos = todos.filter(({ name, isDone }) => {
+      console.log(name, isDone, '==', status);
+      return name.toLowerCase().includes(key) && isDone === status;
+    });
+
+    if (matchedTodos.length > 0) {
+      searchResult.push({ id, title, todos: matchedTodos });
+    }
+  });
+
+  return searchResult;
+};
+
 const performSearch = (query, todoData) => {
   const key = query.get('key').toLowerCase();
   const category = query.get('category');
   let filtered = [];
 
-
   if (category === 'list') {
     filtered = searchList(todoData, key);
     updateViewHeader('Search results');
-    renderLists(filtered);
+    return renderLists(filtered);
   }
 
   if (category === 'items') {
     filtered = searchItems(todoData, key);
-    updateViewHeader('Search results');
-    renderListAndItems(filtered);
   }
+
+  if (category === 'done') {
+    filtered = filterByCompletion(todoData, key, true);
+  }
+
+  if (category === 'pending') {
+    filtered = filterByCompletion(todoData, key, false);
+  }
+
+  updateViewHeader('Search results');
+  renderListAndItems(filtered);
 };
 
 const search = () => {
