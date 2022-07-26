@@ -75,6 +75,7 @@ const generateList = ({ id, title }) => {
   container.appendChild(deleteButton);
 
   li.id = id;
+  li.className = 'list';
   li.appendChild(aTag);
   li.appendChild(container);
 
@@ -83,7 +84,7 @@ const generateList = ({ id, title }) => {
 
 const renderLists = (lists) => {
   const ul = document.createElement('ul');
-  ul.className = 'list';
+  ul.className = 'lists';
 
   lists.forEach(list => {
     ul.appendChild(generateList(list));
@@ -113,7 +114,10 @@ const main = () => {
 
   document.getElementById('create-list-form').onsubmit = sendList;
 
-  document.getElementById('search-form').onsubmit = search;
+  document.getElementById('search-bar').onclick = showSearchOptions;
+
+  document.getElementById('search').onsubmit = search;
+  document.getElementById('search').onchange = search;
 };
 
 window.onload = main;

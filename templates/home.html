@@ -27,13 +27,26 @@
         <input type="submit" value="+" id="create-btn">
       </form>
 
-      <div id="search">
-        <input type="text" name="key" id="search-bar" class="bar text-align" placeholder="Search here">
-      </div>
+      <form action="/search" method="get" id="search">
+        <input type="search" name="key" id="search-bar" class="bar text-align" placeholder="Search here"
+          autocomplete="off">
+
+        <div id="search-options">
+          <div>
+            <input type="radio" name="category" id="list" value="list">
+            <label for="list">List</label>
+          </div>
+
+          <div>
+            <input type="radio" name="category" id="items" value="items">
+            <label for="items">Items</label>
+          </div>
+        </div>
+      </form>
     </div>
 
     <section class="view-list scroll">
-      <h3 class="thick margin-trim">All TODOs</h3>
+      <h3 class="thick margin-trim" id="view-title">All TODOs</h3>
 
       <div class="all-lists scroll">
 

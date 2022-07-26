@@ -4,6 +4,7 @@
   --font-l: 25px;
   --primary-color: gray;
   --secondary-color: lightgray;
+  --bg-color: whitesmoke;
 }
 
 .logout a {

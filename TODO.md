@@ -7,8 +7,8 @@
   - [ ] Make 404 page.
   - [ ] Style landing page.
   - [ ] Implement search feature.
-    - [ ] search by list name
-    - [ ] search by item name
+    - [x] search by list name
+    - [x] search by item name
     - [ ] search by completion
 
 - **DONE:**
