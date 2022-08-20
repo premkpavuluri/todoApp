@@ -1,3 +1,3 @@
 #! /bin/bash
 
-echo -e "ENV=\"TESTING\"\nSESSION_NAME=\"sessionId\"\nSESSION_KEY=\"samplekey\"" > .env
+echo -e "PORT=8080\nENV=\"TESTING\"\nSESSION_NAME=\"sessionId\"\nSESSION_KEY=\"samplekey\"" > .env

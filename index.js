@@ -19,7 +19,7 @@ const main = () => {
 
   const app = createApp(config, users, db);
 
-  const PORT = 8000;
+  const PORT = process.env.PORT;
   app.listen(PORT, () => console.log(`Server is listening on ${PORT}`));
 };
 
